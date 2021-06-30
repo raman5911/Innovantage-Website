@@ -1,51 +1,40 @@
-// Getting the Scroll Button
-var scrollBtn = document.getElementById("top-scroll");
+$(document).ready(function() {
 
-// Getting the root element of the HTML Document
-var rootElement = document.documentElement;
+    // Getting the Scroll Button
+    var scrollBtn = document.getElementById("top-scroll");
 
-// Getting the Navbar
-var nav = document.getElementById("navbar");
+    // Getting the root element of the HTML Document
+    var rootElement = document.documentElement;
 
-// Function to detect scrolling
+    // Function to detect scrolling
 
-window.onscroll = function() {
-    if(rootElement.scrollTop > 20)
-    {
-        // Showing the scroll button
-        scrollBtn.style.display="block";
+    window.onscroll = function() {
+        if(rootElement.scrollTop > 20)
+        {
+            // Showing the scroll button
+            scrollBtn.style.display="block";
+        }
 
-        //Changing Navbar style from dark to light
-        nav.classList.remove("no-color");
-        nav.classList.remove("navbar-dark");
-
-        nav.classList.add("white");
-        nav.classList.add("navbar-light");
+        else
+        {
+            // Hiding the scroll button
+            scrollBtn.style.display="none";
+        }
     }
 
-    else
-    {
-        // Hiding the scroll button
-        scrollBtn.style.display="none";
+    // Function to scroll to the top of the page
 
-        //Changing Navbar style from light to dark
-        nav.classList.remove("white");
-        nav.classList.remove("navbar-light");
-
-        nav.classList.add("no-color");
-        nav.classList.add("navbar-dark");
+    function scrollToTop() {
+        rootElement.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     }
-}
 
-// Function to scroll to the top of the page
+    // scrollToTop() function is called when scroll button is pressed.
 
-function scrollToTop() {
-    rootElement.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
+    scrollBtn.addEventListener("click", scrollToTop);
 
-// scrollToTop() function is called when scroll button is pressed.
-
-scrollBtn.addEventListener("click", scrollToTop);
+    //---------------- Animate on Scroll -------------------
+    AOS.init();
+});
