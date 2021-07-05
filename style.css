@@ -48,7 +48,6 @@ nav .nav-item .nav-link {
     position: relative;
     font-family: 'Merriweather', serif !important;
     font-size: 1.1rem;
-    font-weight: 600;
     word-spacing: 0.2rem;
     transition: all 0.5s;
 }
@@ -119,7 +118,6 @@ header {
 h1 {
     margin: auto 4rem;
     font-family: 'Antic Didone', serif !important;
-
 }
 
 h3, h4, h5 {
