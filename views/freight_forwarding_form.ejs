@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freight Forwarding Form</title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<%- include('./partials/header'); -%>
 
     <style>
 
@@ -226,12 +218,12 @@
             <p>Fill up the form below to get a qoute for our Freight Forwarding services.</p>    
         </div>
 
-        <form action="">
+        <form action="/freight_forwarding_contact_form" method="POST">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
-                        <label for="shipment-type">Type of Shipment</label>
-                        <select name="shipment-type" id="shipment-type">
+                        <label for="shipmentType">Type of Shipment</label>
+                        <select name="shipmentType" id="shipment-type">
                             <option value="" selected disabled hidden>Select Type of Shipment</option>
                             <option value="Import">Import</option>
                             <option value="Export">Export</option>
@@ -241,8 +233,8 @@
 
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
-                        <label for="delivery-incoterms">Delivery Incoterms</label>
-                        <select name="delivery-incoterms" id="delivery-incoterms">
+                        <label for="deliveryIncoterms">Delivery Incoterms</label>
+                        <select name="deliveryIncoterms" id="delivery-incoterms">
                             <option value="" selected disabled hidden>Select Delivery Incoterms</option>
                             <option value="FOB">FOB</option>
                             <option value="EX-WORKS">EX-WORKS</option>
@@ -261,15 +253,15 @@
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                        <label for="user-name">Name</label>
-                        <input type="text" name="user-name" id="user-name" placeholder="Enter your Full Name" required>
+                        <label for="userName">Name</label>
+                        <input type="text" name="userName" id="user-name" placeholder="Enter your Full Name" required>
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                        <label for="user-address">Address</label>
-                        <input type="text" name="user-address" id="user-address" placeholder="Enter your address" required>
+                        <label for="userAddress">Address</label>
+                        <input type="text" name="userAddress" id="user-address" placeholder="Enter your address" required>
                     </div>
                 </div>
 
@@ -277,13 +269,13 @@
                     <div class="user-group">
                         
                         <div class="form-group">
-                            <label for="user-phone-code">Country Code</label>
-                            <input type="number" name="user-phone-code" id="user-phone-code" placeholder="+ (Country Code)" required>
+                            <label for="userPhoneCode">Country Code</label>
+                            <input type="text" name="userPhoneCode" id="user-phone-code" placeholder="+ (Country Code)" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="user-phone">Contact Number</label>
-                            <input type="tel" name="user-phone" id="user-phone" placeholder="Contact Number" required>
+                            <label for="userPhone">Contact Number</label>
+                            <input type="tel" name="userPhone" id="user-phone" placeholder="Contact Number" required>
                         </div>
 
                     </div>
@@ -291,8 +283,8 @@
                 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                        <label for="user-email">Email Address</label>
-                        <input type="email" name="user-email" id="user-email" placeholder="Enter your Email Address" required>
+                        <label for="userEmail">Email Address</label>
+                        <input type="email" name="userEmail" id="user-email" placeholder="Enter your Email Address" required>
                     </div>
                 </div>
             </div>
@@ -305,15 +297,15 @@
 
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
-                        <label for="pickup-address">Shipment Pickup Address</label>
-                        <input type="text" name="pickup-address" id="pickup-address" placeholder="Enter Shipment Pickup Address">
+                        <label for="pickupAddress">Shipment Pickup Address</label>
+                        <input type="text" name="pickupAddress" id="pickup-address" placeholder="Enter Shipment Pickup Address">
                     </div>
                 </div>
 
                 <div class="col-lg-5 col-md-5">
                     <div class="form-group">
-                        <label for="code">ZIP/PIN Code</label>
-                        <input type="number" name="pickup-code" id="pickup-code" placeholder="Enter ZIP or PIN Code">
+                        <label for="pickupCode">ZIP/PIN Code</label>
+                        <input type="number" name="pickupCode" id="pickup-code" placeholder="Enter ZIP or PIN Code">
                     </div>
                 </div>
 
@@ -321,13 +313,13 @@
                     <div class="shipment-group">
                         
                         <div class="form-group">
-                            <label for="pickup-phone-code">Country Code</label>
-                            <input type="number" name="pickup-phone-code" id="pickup-phone-code" placeholder="+ (Country Code)">
+                            <label for="pickupPhoneCode">Country Code</label>
+                            <input type="text" name="pickupPhoneCode" id="pickup-phone-code" placeholder="+ (Country Code)">
                         </div>
 
                         <div class="form-group">
-                            <label for="pickup-phone">Contact Number</label>
-                            <input type="tel" name="pickup-phone" id="pickup-phone" placeholder="Contact Number">
+                            <label for="pickupPhone">Contact Number</label>
+                            <input type="tel" name="pickupPhone" id="pickup-phone" placeholder="Contact Number">
                         </div>
 
                     </div>
@@ -335,8 +327,8 @@
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                        <label for="pickup-from">Shipment From (Select Country)</label>
-                        <select name="pickup-from" id="pickup-from">
+                        <label for="pickupFrom">Shipment From (Select Country)</label>
+                        <select name="pickupFrom" id="pickup-from">
                             <option value="" selected disabled hidden>Select Country Name</option>
                             <option value="Afganistan">Afghanistan</option>
                             <option value="Albania">Albania</option>
@@ -590,15 +582,15 @@
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                        <label for="origin-port">Port of Origin (Nearest Port)</label>
-                        <input type="text" name="origin-port" id="origin-port" placeholder="Enter Nearest Port of Origin">
+                        <label for="originPort">Port of Origin (Nearest Port)</label>
+                        <input type="text" name="originPort" id="origin-port" placeholder="Enter Nearest Port of Origin">
                     </div>             
                 </div>
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                        <label for="drop-to">Shipment To (Select Country)</label>
-                        <select name="drop-to" id="drop-to">
+                        <label for="dropTo">Shipment To (Select Country)</label>
+                        <select name="dropTo" id="drop-to">
                             <option value="" selected disabled hidden>Select Country Name</option>
                             <option value="Afganistan">Afghanistan</option>
                             <option value="Albania">Albania</option>
@@ -852,15 +844,15 @@
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                        <label for="destination-port">Destination Port (Nearest Port)</label>
-                        <input type="text" name="destination-port" id="destination-port" placeholder="Enter Nearest Destination Port">
+                        <label for="destinationPort">Destination Port (Nearest Port)</label>
+                        <input type="text" name="destinationPort" id="destination-port" placeholder="Enter Nearest Destination Port">
                     </div>             
                 </div>
 
                 <div class="col">
                     <div class="form-group">
-                        <label for="shipment-mode">Mode of Shipment</label>
-                        <select name="shipment-mode" id="shipment-mode">
+                        <label for="shipmentMode">Mode of Shipment</label>
+                        <select name="shipmentMode" id="shipment-mode">
                             <option value="" selected disabled hidden>Select Mode of Shipment</option>
                             <option value="By Air">By Air</option>
                             <option value="By Ocean">By Ocean</option>
@@ -877,14 +869,14 @@
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                        <label for="commodity-name">Commodity Name</label>
-                        <input type="text" name="commodity-name" id="commodity-name" placeholder="Enter Commodity Name">
+                        <label for="commodityName">Commodity Name</label>
+                        <input type="text" name="commodityName" id="commodity-name" placeholder="Enter Commodity Name">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                        <label for="commodity-type">Commodity Type</label>
-                        <select name="commodity-type" id="commodity-type">
+                        <label for="commodityType">Commodity Type</label>
+                        <select name="commodityType" id="commodity-type">
                             <option value="" selected disabled hidden>Select Commodity Type</option>
                             <option value="Hazardous">Hazardous</option>
                             <option value="Non-Hazardous">Non-Hazardous</option>
@@ -893,8 +885,8 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="file-upload">Attach MSDS Report</label>
-                        <input type="file" name="file-upload" id="file-upload">
+                        <label for="fileUpload">Attach MSDS Report</label>
+                        <input type="file" name="fileUpload" id="file-upload">
                     </div>
                 </div>
             </div>
@@ -903,8 +895,8 @@
 
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
-                        <label for="container-type">Type of Containers / LCL Cargo</label>
-                        <select name="container-type" id="container-type">
+                        <label for="containerType">Type of Containers / LCL Cargo</label>
+                        <select name="containerType" id="container-type">
                             <option value="" selected disabled hidden>Select Type of Container</option>
                             <option value="20FT General">20FT General</option>
                             <option value="20FT High Cube">20FT High Cube</option>
@@ -918,8 +910,8 @@
 
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
-                        <label for="shipment-volume">Shipment Volume</label>
-                        <select name="shipment-volume" id="shipment-volume">
+                        <label for="shipmentVolume">Shipment Volume</label>
+                        <select name="shipmentVolume" id="shipment-volume">
                             <option value="" selected disabled hidden>Select Shipment Volume</option>
                             <option value="Gross Weight (Kgs)">Gross Weight (Kgs)</option>
                             <option value="No. of Packages">No. of Packages</option>
@@ -937,10 +929,6 @@
 
 </body>
 
-<footer>
-    <p class="copyright">Copyright &copy; 2021 Innovantage Solutions Private Limited. All rights reserved.</p>
-
-    <p class="dev-name">Website is designed and developed by <a href="https://raman5911.github.io" target="_blank">Ramanpreet Singh</a> .</p>
-</footer>
+<%- include('./partials/footer'); -%>
 
 </html>
