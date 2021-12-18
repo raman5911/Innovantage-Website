@@ -1,6 +1,6 @@
 <%- include('./partials/header'); -%>
 
-<title>Freight Forwarding Form</title>
+<title>Custom Clearance Form</title>
 
 <style>
     body {
@@ -226,10 +226,10 @@
     <div class="form">
         <div class="heading">
             <h1>Fill up the Form</h1>
-            <p>Fill up the form below to get a qoute for our Freight Forwarding services.</p>
+            <p>Fill up the form below to get a qoute for our Custom Clearance services.</p>
         </div>
 
-        <form action="/freight_forwarding_contact_form" method="POST">
+        <form action="/custom_clearance_contact_form" method="POST">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
@@ -238,23 +238,10 @@
                             <option value="" selected disabled hidden>Select Type of Shipment</option>
                             <option value="Import">Import</option>
                             <option value="Export">Export</option>
+                            <option value="LCL">LCL</option>
                         </select>
                     </div>
                 </div>
-
-                <div class="col-lg-12 col-md-12">
-                    <div class="form-group">
-                        <label for="deliveryIncoterms">Delivery Incoterms</label>
-                        <select name="deliveryIncoterms" id="delivery-incoterms">
-                            <option value="" selected disabled hidden>Select Delivery Incoterms</option>
-                            <option value="FOB">FOB</option>
-                            <option value="EX-WORKS">EX-WORKS</option>
-                            <option value="CIF/CIP">CIF/CIP</option>
-                            <option value="DDU">DDU</option>
-                        </select>
-                    </div>
-                </div>
-
             </div>
 
             <div class="row">
@@ -891,7 +878,7 @@
                         <input type="text" name="commodityName" id="commodity-name" placeholder="Enter Commodity Name">
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
+                <!-- <div class="col-lg-6 col-md-6">
                     <div class="form-group">
                         <label for="commodityType">Commodity Type</label>
                         <select name="commodityType" id="commodity-type">
@@ -900,10 +887,10 @@
                             <option value="Non-Hazardous">Non-Hazardous</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
                 <div class="col">
                     <div class="form-group">
-                        <label for="fileUpload">Attach MSDS Report</label>
+                        <label for="fileUpload">Attach File</label>
                         <input type="file" name="fileUpload" id="file-upload">
                     </div>
                 </div>
@@ -926,7 +913,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-12 col-md-12">
+                <!-- <div class="col-lg-12 col-md-12">
                     <div class="form-group">
                         <label for="shipmentVolume">Shipment Volume</label>
                         <select name="shipmentVolume" id="shipment-volume">
@@ -935,6 +922,13 @@
                             <option value="No. of Packages">No. of Packages</option>
                             <option value="Total Voume (CBM)">Total Voume (CBM)</option>
                         </select>
+                    </div>
+                </div> -->
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="form-group">
+                        <label for="numOfShip">Number of shipments per month</label>
+                        <input type="text" name="numOfShip" id="num-of-ship" placeholder="Enter number of shipments">
                     </div>
                 </div>
 
