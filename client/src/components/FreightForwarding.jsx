@@ -361,7 +361,7 @@ class FreightForwarding extends React.Component {
 						<tbody>{this.renderTableData()}</tbody>
 					</Table>
 
-					<button
+					{/* <button
 						disabled={this.state.disablePrevBtn}
 						className="previous"
 						onClick={() => this.previousButton()}
@@ -377,7 +377,7 @@ class FreightForwarding extends React.Component {
 					>
 						{" "}
 						Next &gt;&gt;{" "}
-					</button>
+					</button> */}
 				</div>
 			);
 		}

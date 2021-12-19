@@ -212,6 +212,9 @@
     href="https://fonts.googleapis.com/css2?family=Antic+Didone&family=Merriweather:wght@300&family=Open+Sans&display=swap"
     rel="stylesheet">
 
+<!-- Telephone jQuery Plugin -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
 <!-- Fontawesome Icons CDN -->
 <script src="https://kit.fontawesome.com/5986627d7c.js" crossorigin="anonymous"></script>
 
@@ -293,6 +296,13 @@
 
                     </div>
                 </div>
+
+                <!-- <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label for="userPhone">Contact Number</label>
+                        <input type="tel" name="userPhone" id="phone">
+                    </div>
+                </div> -->
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
@@ -901,15 +911,6 @@
                         </select>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="fileUpload">Attach MSDS Report</label>
-                        <input type="file" name="fileUpload" id="file-upload">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
 
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
@@ -917,24 +918,49 @@
                         <select name="containerType" id="container-type">
                             <option value="" selected disabled hidden>Select Type of Container</option>
                             <option value="20FT General">20FT General</option>
-                            <option value="20FT High Cube">20FT High Cube</option>
                             <option value="40FT General">40FT General</option>
+                            <option value="20FT High Cube">20FT High Cube</option>
                             <option value="40FT High Cube">40FT High Cube</option>
+                            <option value="20FT Refregerated">20FT Refregerated</option>
+                            <option value="40FT Refregerated">40FT Refregerated</option>
                             <option value="LCL Cargo">LCL Cargo</option>
                             <option value="N.A.">N.A. (For Air Shipments Only)</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="col-lg-12 col-md-12">
+                <!-- <div class="col">
                     <div class="form-group">
-                        <label for="shipmentVolume">Shipment Volume</label>
-                        <select name="shipmentVolume" id="shipment-volume">
-                            <option value="" selected disabled hidden>Select Shipment Volume</option>
-                            <option value="Gross Weight (Kgs)">Gross Weight (Kgs)</option>
-                            <option value="No. of Packages">No. of Packages</option>
-                            <option value="Total Voume (CBM)">Total Voume (CBM)</option>
-                        </select>
+                        <label for="fileUpload">Attach MSDS Report</label>
+                        <input type="file" name="fileUpload" id="file-upload">
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12">
+                    <h4>Shipment Volume</h4>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                        <label for="grossWeight">Gross Weight (Kgs)</label>
+                        <input type="text" name="grossWeight" id="gross-weight" placeholder="Enter Gross Weight (in Kgs)">
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                        <label for="numOfPkg">No. of Packages</label>
+                        <input type="text" name="numOfPkg" id="num-of-pkg" placeholder="Enter No. of Packages">
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                        <label for="totalVolume">Total Voume (CBM)</label>
+                        <input type="text" name="totalVolume" id="total-volume" placeholder="Enter Total Voume (CBM)">
                     </div>
                 </div>
 
@@ -948,5 +974,39 @@
 </body>
 
 <%- include('./partials/footer'); -%>
+
+<!-- Telephone jQuery Plugin
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<script>
+    var getIp = function (callback) {
+        fetch('https://ipinfo.io/json?token=7782014afc48ae', {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then((response) => response.json())
+            .catch(() => {
+                return {
+                    country: 'us',
+                };
+            })
+            .then((response) => callback(response.country));
+    };
+
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+        initialCountry: "auto",
+        geoIpLookup: getIp,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    input.addEventListener('change', function() {
+        var full_number = input.getNumber(intlTelInputUtils.numberFormat.E164);
+        input.val(full_number);
+        console.log(full_number);
+    });
+</script> -->
 
 </html>

@@ -145,7 +145,9 @@ app.post("/login", function (req, res) {
           // user.token = token;
 
           login = true;
-          res.redirect("/dashboard/home");
+          // res.redirect("/dashboard/home");
+
+          res.redirect("/dashboard/freight_forwarding");
         } else {
           res.render("login", {
             loginError: true
@@ -313,7 +315,9 @@ app.post("/freight_forwarding_contact_form", function (req, res) {
     commodity_name: req.body.commodityName,
     commodity_type: req.body.commodityType,
     container_type: req.body.containerType,
-    shipment_volume: req.body.shipmentVolume
+    gross_weight: req.body.grossWeight,
+    num_of_pkg: req.body.numOfPkg,
+    total_volume: req.body.totalVolume
   });
 
   freightUser.save(function (err, data) {
