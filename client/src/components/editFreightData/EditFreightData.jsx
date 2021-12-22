@@ -1043,7 +1043,7 @@ class EditFreightData extends React.Component {
 							type="text"
 							name="commodityName"
 							id="commodityName"
-							value={this.state.shipmentMode}
+							value={this.state.commodityName}
 							onChange={(e) => this.handleInput(e)}
 							placeholder="Enter Commodity Name"
 						/>

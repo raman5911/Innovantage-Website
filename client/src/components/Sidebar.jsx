@@ -25,7 +25,7 @@ function Sidebar() {
 
 			<span className="company">
 				<img
-					src="https://raw.githubusercontent.com/raman5911/Innovantage-Website/main/images/new-logo.png"
+					src="https://drive.google.com/uc?export=view&id=12fB-VMV1WCb_cw9ZlHenwIGYwlY7hJzR"
 					alt="Innovantage logo"
 				/>
 				<h5>Innovantage Solutions</h5>
