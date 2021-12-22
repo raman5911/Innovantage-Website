@@ -195,7 +195,15 @@ class ShowFreightData extends React.Component {
 							{user.container_type}{" "}
 						</p>
 						<p>
-							<b>Shipment Volume:</b> {user.shipment_volume}{" "}
+							<b>Gross Weight (Kgs):</b> {user.gross_weight}{" "}
+						</p>
+						<p>
+							<b>No. of Packages:</b>
+							{user.num_of_pkg}
+						</p>
+						<p>
+							<b>Total Voume (CBM):</b>
+							{user.total_volume}
 						</p>
 					</div>
 				</div>

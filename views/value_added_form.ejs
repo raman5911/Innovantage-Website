@@ -1,0 +1,361 @@
+<%- include('./partials/header'); -%>
+
+<title>Value Added Services Form</title>
+
+<style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    h1 {
+        margin: 1rem auto;
+        font-family: 'Antic Didone', serif !important;
+    }
+
+    h4 {
+        font-family: 'Merriweather', serif !important;
+        color: #536DFE;
+    }
+
+    .form {
+        width: 70rem;
+        margin: 0 auto;
+        padding: 3% 7%;
+    }
+
+    .heading {
+        text-align: center;
+    }
+
+    .form form {
+        text-align: left;
+    }
+
+    .row {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+        margin: 0.7rem auto;
+    }
+
+    label {
+        display: block;
+    }
+
+    select {
+        padding: 0.5rem;
+        border-radius: 5px;
+    }
+
+    select option {
+        font-size: 17px;
+    }
+
+    form input {
+        width: 75%;
+        padding: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+    }
+
+    form .user-group,
+    form .shipment-group {
+        display: flex;
+    }
+
+    form .user-group .form-group {
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+
+    form .shipment-group .form-group {
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+
+    form .user-group {
+        position: relative;
+        left: 0.1rem;
+    }
+
+    form .shipment-group {
+        position: relative;
+        left: -2.8rem;
+    }
+
+    form #user-phone-code,
+    #user-phone {
+        width: 90%;
+    }
+
+    form #pickup-phone-code,
+    #pickup-phone {
+        width: 110%;
+    }
+
+    button {
+        cursor: pointer;
+        border: 2px solid #6CFE52;
+        border-radius: 10px;
+        padding: 0.7rem 1.5rem;
+        background-color: #6CFE52;
+        color: #fff;
+        transition: all 0.3s;
+    }
+
+    button i {
+        margin-top: 0.3rem;
+        margin-left: 0.2rem;
+        transition: all 0.3s;
+    }
+
+    button:hover {
+        box-shadow: 5px 10px 10px 5px #6cfe525e;
+        color: #fff;
+        background-color: #6cfe52;
+        transform: scale(1.07);
+    }
+
+    button:hover i {
+        margin-left: 0.5rem;
+    }
+
+    footer {
+        display: flex;
+        justify-content: space-between;
+        background-color: #121212e3;
+        color: #fff;
+        margin-top: 1rem;
+    }
+
+    footer p {
+        margin: 1.5rem;
+    }
+
+    footer .dev-name a {
+        color: #FE526C;
+        text-decoration: underline;
+    }
+
+    @media (max-width: 1200px) {
+        form input {
+            width: auto;
+        }
+
+        form select {
+            width: auto;
+        }
+    }
+
+    @media (max-width: 769px) {
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .heading {
+            text-align: left;
+        }
+
+        .heading p {
+            width: 30% !important;
+        }
+
+        form input {
+            width: auto;
+        }
+
+        form select {
+            width: auto;
+        }
+
+        form .user-group,
+        form .shipment-group {
+            display: block;
+            position: static;
+        }
+
+        form .user-group .form-group {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        form .shipment-group .form-group {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #user-phone-code,
+        #user-phone,
+        #pickup-phone-code,
+        #pickup-phone {
+            width: auto !important;
+        }
+
+        footer {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        footer p {
+            margin: 0.3rem;
+        }
+    }
+</style>
+
+<!-- Google Fonts CDN -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+    href="https://fonts.googleapis.com/css2?family=Antic+Didone&family=Merriweather:wght@300&family=Open+Sans&display=swap"
+    rel="stylesheet">
+
+<!-- Telephone jQuery Plugin -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
+<!-- Fontawesome Icons CDN -->
+<script src="https://kit.fontawesome.com/5986627d7c.js" crossorigin="anonymous"></script>
+
+<!-- Favicons -->
+<link rel="icon" href="favicons/cropped-Innovantage-transparent-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="favicons/cropped-Innovantage-transparent-180x180.png" />
+
+</head>
+
+<body>
+
+    <div class="form">
+        <div class="heading">
+            <h1>Fill up the Form</h1>
+            <p>Fill up the form below to get a qoute for our Value Added Services.</p>
+        </div>
+
+        <form action="/value_added_services_contact_form" method="POST">
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <h4>Enquiry requested from</h4>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label for="userName">Name</label>
+                        <input type="text" name="userName" id="user-name" placeholder="Enter your Full Name" required>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label for="userAddress">Address</label>
+                        <input type="text" name="userAddress" id="user-address" placeholder="Enter your address"
+                            required>
+                    </div>
+                </div>
+                <!-- 
+                <div class="col-lg-6 col-md-6">
+                    <div class="user-group">
+
+                        <div class="form-group">
+                            <label for="userPhoneCode">Country Code</label>
+                            <input type="text" name="userPhoneCode" id="user-phone-code" placeholder="+ (Country Code)"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="userPhone">Contact Number</label>
+                            <input type="tel" name="userPhone" id="user-phone" placeholder="Contact Number" required>
+                        </div>
+
+                    </div>
+                </div> -->
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label for="userPhone">Contact Number</label>
+                        <input type="tel" name="userPhone" id="phone">
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label for="userEmail">Email Address</label>
+                        <input type="email" name="userEmail" id="user-email" placeholder="Enter your Email Address"
+                            required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <h4>Service Specification</h4>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="form-group">
+                        <label for="serviceType">Type of Value Addded Services</label>
+                        <select name="serviceType" id="service-type">
+                            <option value="" selected disabled hidden>Select Type of Service</option>
+                            <option value="BIS">BIS</option>
+                            <option value="DGFT">DGFT</option>
+                            <option value="E-Waste">E-Waste</option>
+                            <option value="Customs">Customs</option>
+                            <option value="MOEFCC">MOEFCC</option>
+                            <option value="FSSAI">FSSAI</option>
+                            <option value="Other Regulatory / Licensing Approvals">Other Regulatory / Licensing
+                                Approvals
+                            </option>
+                            <option value="Logistics">Logistics</option>
+                            <option value="Charted Engineer Certificate">Charted Engineer Certificate</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label for="fileUpload">Attach Catalog / Technical Specification File</label>
+                        <input type="file" name="fileUpload" id="file-upload">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Submit <i class="fas fa-arrow-right"></i></button>
+
+        </form>
+    </div>
+
+</body>
+
+<%- include('./partials/footer'); -%>
+
+<!-- Telephone jQuery Plugin -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<script>
+    var getIp = function (callback) {
+        fetch('https://ipinfo.io/json?token=7782014afc48ae', {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then((response) => response.json())
+            .catch(() => {
+                return {
+                    country: 'us',
+                };
+            })
+            .then((response) => callback(response.country));
+    };
+
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+        initialCountry: "auto",
+        geoIpLookup: getIp,
+
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+</script>
+
+</html>

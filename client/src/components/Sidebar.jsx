@@ -32,13 +32,13 @@ function Sidebar() {
 			</span>
 
 			<ul>
-				<li className="list">
+				{/* <li className="list">
 					<NavLink to="/dashboard/home">
 						{" "}
 						<FontAwesomeIcon icon={faUser} className="li-Icon" />
 						Dashboard
 					</NavLink>
-				</li>
+				</li> */}
 
 				<li className="list">
 					<NavLink to="/dashboard/freight_forwarding">
