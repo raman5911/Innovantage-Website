@@ -80,7 +80,7 @@ nav .btn:hover {
 header {
 	height: 100vh;
 	overflow: hidden;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
 		url("images/logistics-photo.jpg");
 	background-position: center;
 	background-repeat: no-repeat;
@@ -204,7 +204,6 @@ h5 {
 }
 
 #about .content p {
-	width: 90%;
 	line-height: 1.7;
 	word-spacing: 0.2rem;
 	padding: 0.4rem;
@@ -215,7 +214,6 @@ h5 {
 .extra-content p {
 	line-height: 1.7;
 	word-spacing: 0.2rem;
-	width: 90%;
 	padding: 0.4rem;
 	font-size: 1.02rem;
 	color: #252525;
@@ -231,10 +229,8 @@ h5 {
 		#625eb1 100%
 	); */
 	color: #fff;
-	background-image: linear-gradient(
-			rgba(0, 102, 255, 0.3),
-			rgba(0, 102, 255, 0.3)
-		),
+	background-image: linear-gradient(rgba(0, 102, 255, 0.3),
+			rgba(0, 102, 255, 0.3)),
 		url("/images/globe-background.jpg");
 }
 
@@ -341,12 +337,10 @@ h5 {
 
 .carousel {
 	padding: 4rem;
-	background-image: linear-gradient(
-		-225deg,
-		#22e1ff 0%,
-		#1d8fe1 48%,
-		#625eb1 100%
-	);
+	background-image: linear-gradient(-225deg,
+			#22e1ff 0%,
+			#1d8fe1 48%,
+			#625eb1 100%);
 	color: #fff;
 	margin: 2rem;
 }
@@ -396,10 +390,8 @@ h5 {
 		#625eb1 100%
 	); */
 
-	background-image: linear-gradient(
-			rgba(0, 102, 255, 0.3),
-			rgba(0, 102, 255, 0.3)
-		),
+	background-image: linear-gradient(rgba(0, 102, 255, 0.3),
+			rgba(0, 102, 255, 0.3)),
 		url("/images/globe-background.jpg");
 }
 
@@ -441,13 +433,12 @@ h5 {
 .form-box .message .social-icons .social {
 	margin: 0.3rem;
 	font-size: 1.5rem;
-	color: #fe526c;
 	padding: 0.5rem;
 	transition: all 0.5s;
 }
 
 .form-box .message .social-icons .social:hover {
-	background-color: #fe526c;
+	background-color: #007bff;
 	color: #fff;
 	border-radius: 50%;
 }
@@ -583,6 +574,7 @@ footer .contact a:hover i {
 footer .social {
 	margin: 0.5rem;
 	font-size: 1.4rem;
+	color: #007bff;
 }
 
 .copyright-section {
@@ -608,14 +600,28 @@ footer .social {
 }
 
 /* --------Media Queries-------- */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
+
 	#about .thumbnail,
 	#about .thumbnail img {
 		width: 450px;
 	}
+
+	#about h1 {
+		margin-left: 5.2rem;
+	}
+
+	.extra-content p {
+		margin-left: 1.8rem;
+	}
 }
 
 @media (max-width: 992px) {
+
+	#about h1 {
+		margin-left: initial;
+	}
+
 	#about .content {
 		margin: auto;
 		width: 100%;
@@ -623,6 +629,7 @@ footer .social {
 
 	.extra-content p {
 		width: 100%;
+		margin-left: initial;
 	}
 
 	#review .row {
@@ -645,6 +652,7 @@ footer .social {
 }
 
 @media (max-width: 769px) {
+
 	#about .thumbnail,
 	#about .thumbnail img {
 		width: 400px;
