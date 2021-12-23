@@ -8,7 +8,7 @@ function Navbar() {
 	return (
 		<div className="navbar">
 			<h4>Dashboard</h4>
-			<NavLink to="/dashboard/search">
+			<NavLink to="/dashboard/search" className="link">
 				{" "}
 				Search{" "}
 				<FontAwesomeIcon icon={faSearch} className="searchIcon" />{" "}

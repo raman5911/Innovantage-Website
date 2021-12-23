@@ -350,7 +350,7 @@ class FreightForwarding extends React.Component {
 						<thead>
 							<tr>
 								<th>Sr. No.</th>
-								<th>id</th>
+								<th>Order Id</th>
 								<th>Name</th>
 								<th>Contact Number</th>
 								<th>Email Address</th>

@@ -85,15 +85,9 @@ app.get("/value_added_services_contact_form", function (req, res) {
   res.render("value_added_form");
 });
 
-// const mongodb = 'mongodb://localhost:27017/Innovantage';
-
 const mongodb = 'mongodb+srv://admin:admin@innovantage@cluster0.0sxn0.mongodb.net/innovantage-db?retryWrites=true&w=majority';
 
-
-mongoose.connect(mongodb, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const Schema = mongoose.Schema;
 
@@ -234,7 +228,7 @@ const freightSchema = new Schema({
   }
 });
 
-const Freight = mongoose.model('Freight', freightSchema);
+const Freight = mongoose.model('User', freightSchema);
 
 const customSchema = new Schema({
   _id: {
@@ -393,9 +387,7 @@ app.get("/api/freight_forwarding/:page", function (req, res) {
 app.get("/api/freight_forwarding/:id", function (req, res) {
   var id = req.params.id;
 
-  Freight.find({
-    _id: id
-  }, function (err, data) {
+  Freight.find({ _id: id }, function (err, data) {
     if (err)
       res.send(err);
 
@@ -427,15 +419,7 @@ app.get("/api/search/:id", function (req, res) {
   console.log(queryType);
 
   if (queryType == 'F') {
-    Freight.find({
-      $and: [{
-        _id: requestedQueryId
-      }, {
-        _id: {
-          $exists: true
-        }
-      }]
-    }, function (err, data) {
+    Freight.find({ $and: [{ _id: requestedQueryId }, { _id: { $exists: true } }] }, function (err, data) {
 
       if (err)
         res.send([]);
@@ -446,26 +430,42 @@ app.get("/api/search/:id", function (req, res) {
       }
 
     });
-  } else if (queryType == 'C') {
+  }
 
-  } else if (queryType == 'T') {
+  else if (queryType == 'C') {
 
-  } else if (queryType == 'W') {
+  }
 
-  } else if (queryType == 'V') {
+  else if (queryType == 'T') {
 
-  } else
+  }
+
+  else if (queryType == 'C') {
+
+  }
+
+  else if (queryType == 'W') {
+
+  }
+
+  else if (queryType == 'W') {
+
+  }
+
+  else if (queryType == 'V') {
+
+  }
+
+  else {
     res.send([]);
-
+  }
 });
 
 app.post("/api/editData", function (req, res) {
 
   var requestedId = req.body.id;
 
-  Freight.findOne({
-    id: requestedId
-  }, function (err, data) {
+  Freight.findOne({ id: requestedId }, function (err, data) {
     data.shipment_type = req.body.shipmentType;
     data.delivery_incoterms = req.body.deliveryIncoterms;
     data.user_name = req.body.userName;
@@ -512,13 +512,21 @@ app.get("/api/delete/:id", function (req, res) {
         // res.send(data);
         res.send("Data deleted successfully");
     });
-  } else if (queryType == 'C') {
+  }
 
-  } else if (queryType == 'T') {
+  else if (queryType == 'C') {
 
-  } else if (queryType == 'W') {
+  }
 
-  } else if (queryType == 'V') {
+  else if (queryType == 'T') {
+
+  }
+
+  else if (queryType == 'W') {
+
+  }
+
+  else if (queryType == 'V') {
 
   }
 });
@@ -531,28 +539,40 @@ app.post("/api/changeStatus", function (req, res) {
 
   if (idType == 'F') {
     // console.log(req.body.value);
-    Freight.findOneAndUpdate({
-      _id: requestedId
-    }, {
-      status: req.body.value
-    }, {
-      new: true
-    }, function (err, result) {
+    Freight.findOneAndUpdate({ _id: requestedId }, { status: req.body.value }, { new: true }, function (err, result) {
       if (err)
         res.send("Error");
 
       else
         res.send("Success");
     });
-  } else if (idType == 'C') {
+  }
 
-  } else if (idType == 'T') {
+  else if (idType == 'C') {
 
-  } else if (idType == 'F') {
+  }
 
-  } else if (idType == 'W') {
+  else if (idType == 'C') {
 
-  } else if (idType == 'V') {
+  }
+
+  else if (idType == 'T') {
+
+  }
+
+  else if (idType == 'W') {
+
+  }
+
+  else if (idType == 'F') {
+
+  }
+
+  else if (idType == 'W') {
+
+  }
+
+  else if (idType == 'V') {
 
   }
 
