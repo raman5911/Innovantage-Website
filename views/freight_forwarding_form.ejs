@@ -90,11 +90,6 @@
         width: 90%;
     }
 
-    form #pickup-phone-code,
-    #pickup-phone {
-        width: 110%;
-    }
-
     button {
         cursor: pointer;
         border: 2px solid #6CFE52;
@@ -212,7 +207,7 @@
     href="https://fonts.googleapis.com/css2?family=Antic+Didone&family=Merriweather:wght@300&family=Open+Sans&display=swap"
     rel="stylesheet">
 
-<!-- Telephone jQuery Plugin -->
+<!-- intel-tel-input Plugin -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
 
 <!-- Fontawesome Icons CDN -->
@@ -281,28 +276,14 @@
                 </div>
 
                 <div class="col-lg-6 col-md-6">
-                    <div class="user-group">
+                    <div class="form-group">
+                        <label for="userPhone">Contact Number</label>
+                        <input type="tel" name="userPhone" id="phone" required>
 
-                        <div class="form-group">
-                            <label for="userPhoneCode">Country Code</label>
-                            <input type="text" name="userPhoneCode" id="user-phone-code" placeholder="+ (Country Code)"
-                                required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="userPhone">Contact Number</label>
-                            <input type="tel" name="userPhone" id="user-phone" placeholder="Contact Number" required>
-                        </div>
+                        <input type="hidden" name="userPhoneCode" id="user-phone-code">
 
                     </div>
                 </div>
-
-                <!-- <div class="col-lg-6 col-md-6">
-                    <div class="form-group">
-                        <label for="userPhone">Contact Number</label>
-                        <input type="tel" name="userPhone" id="phone">
-                    </div>
-                </div> -->
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
@@ -327,26 +308,19 @@
                     </div>
                 </div>
 
-                <div class="col-lg-5 col-md-5">
+                <div class="col-lg-6 col-md-6">
                     <div class="form-group">
                         <label for="pickupCode">ZIP/PIN Code</label>
                         <input type="number" name="pickupCode" id="pickup-code" placeholder="Enter ZIP or PIN Code">
                     </div>
                 </div>
 
-                <div class="col-lg-7 col-md-7">
-                    <div class="shipment-group">
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label for="pickupPhone">Contact Number</label>
+                        <input type="tel" name="pickupPhone" id="pickup-phone" required>
 
-                        <div class="form-group">
-                            <label for="pickupPhoneCode">Country Code</label>
-                            <input type="text" name="pickupPhoneCode" id="pickup-phone-code"
-                                placeholder="+ (Country Code)">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="pickupPhone">Contact Number</label>
-                            <input type="tel" name="pickupPhone" id="pickup-phone" placeholder="Contact Number">
-                        </div>
+                        <input type="hidden" name="pickupPhoneCode" id="pickup-phone-code">
 
                     </div>
                 </div>
@@ -946,7 +920,8 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="form-group">
                         <label for="grossWeight">Gross Weight (Kgs)</label>
-                        <input type="text" name="grossWeight" id="gross-weight" placeholder="Enter Gross Weight (in Kgs)">
+                        <input type="text" name="grossWeight" id="gross-weight"
+                            placeholder="Enter Gross Weight (in Kgs)">
                     </div>
                 </div>
 
@@ -975,11 +950,12 @@
 
 <%- include('./partials/footer'); -%>
 
-<!-- Telephone jQuery Plugin
+<!-- intel-tel-input Plugin -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
 <script>
+    // Getting IP address to find user's country
     var getIp = function (callback) {
         fetch('https://ipinfo.io/json?token=7782014afc48ae', {
                 headers: {
@@ -995,18 +971,51 @@
             .then((response) => callback(response.country));
     };
 
-    var input = document.querySelector("#phone");
-    window.intlTelInput(input, {
+    // Initialising intel-tel-input for user phone field
+
+    var userInput = document.querySelector("#phone");
+    var itiUser = window.intlTelInput(userInput, {
         initialCountry: "auto",
         geoIpLookup: getIp,
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
-    input.addEventListener('change', function() {
-        var full_number = input.getNumber(intlTelInputUtils.numberFormat.E164);
-        input.val(full_number);
-        console.log(full_number);
+    // Setting phone dial code of user field
+
+    var countryDataUser = itiUser.getSelectedCountryData();
+    var countryCodeUser = countryDataUser.dialCode;
+    document.getElementById("user-phone-code").value = countryCodeUser;
+    console.log(countryCodeUser);
+
+    userInput.addEventListener("countrychange", function () {
+        countryDataUser = itiUser.getSelectedCountryData();
+        countryCodeUser = countryDataUser.dialCode;
+        document.getElementById("user-phone-code").value = countryCodeUser;
+        console.log(countryCodeUser);
     });
-</script> -->
+
+    // Initialising intel-tel-input for shipment phone field
+
+    var ShipmentInput = document.querySelector("#pickup-phone");
+    var itiShipment = window.intlTelInput(ShipmentInput, {
+        initialCountry: "auto",
+        geoIpLookup: getIp,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    // Setting phone dial code of shipment field
+
+    var countryDataShipment = itiShipment.getSelectedCountryData();
+    var countryCodeShipment = countryDataShipment.dialCode;
+    document.getElementById("pickup-phone-code").value = countryCodeShipment;
+    console.log(countryCodeShipment);
+
+    ShipmentInput.addEventListener("countrychange", function () {
+        countryDataShipment = itiShipment.getSelectedCountryData();
+        countryCodeShipment = countryDataShipment.dialCode;
+        document.getElementById("pickup-phone-code").value = countryCodeShipment;
+        console.log(countryCodeShipment);
+    });
+</script>
 
 </html>

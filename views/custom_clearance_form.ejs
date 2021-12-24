@@ -70,29 +70,9 @@
         margin-right: 0%;
     }
 
-    form .shipment-group .form-group {
-        margin-left: 3%;
-        margin-right: 3%;
-    }
-
     form .user-group {
         position: relative;
         left: 0.1rem;
-    }
-
-    form .shipment-group {
-        position: relative;
-        left: -2.8rem;
-    }
-
-    form #user-phone-code,
-    #user-phone {
-        width: 90%;
-    }
-
-    form #pickup-phone-code,
-    #pickup-phone {
-        width: 110%;
     }
 
     button {
@@ -212,6 +192,9 @@
     href="https://fonts.googleapis.com/css2?family=Antic+Didone&family=Merriweather:wght@300&family=Open+Sans&display=swap"
     rel="stylesheet">
 
+<!-- intel-tel-input Plugin -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
 <!-- Fontawesome Icons CDN -->
 <script src="https://kit.fontawesome.com/5986627d7c.js" crossorigin="anonymous"></script>
 
@@ -265,19 +248,11 @@
                 </div>
 
                 <div class="col-lg-6 col-md-6">
-                    <div class="user-group">
+                    <div class="form-group">
+                        <label for="userPhone">Contact Number</label>
+                        <input type="tel" name="userPhone" id="phone" required>
 
-                        <div class="form-group">
-                            <label for="userPhoneCode">Country Code</label>
-                            <input type="text" name="userPhoneCode" id="user-phone-code" placeholder="+ (Country Code)"
-                                required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="userPhone">Contact Number</label>
-                            <input type="tel" name="userPhone" id="user-phone" placeholder="Contact Number" required>
-                        </div>
-
+                        <input type="hidden" name="userPhoneCode" id="user-phone-code">
                     </div>
                 </div>
 
@@ -304,27 +279,19 @@
                     </div>
                 </div>
 
-                <div class="col-lg-5 col-md-5">
+                <div class="col-lg-6 col-md-6">
                     <div class="form-group">
                         <label for="pickupCode">ZIP/PIN Code</label>
                         <input type="number" name="pickupCode" id="pickup-code" placeholder="Enter ZIP or PIN Code">
                     </div>
                 </div>
 
-                <div class="col-lg-7 col-md-7">
-                    <div class="shipment-group">
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label for="pickupPhone">Contact Number</label>
+                        <input type="tel" name="pickupPhone" id="pickup-phone">
 
-                        <div class="form-group">
-                            <label for="pickupPhoneCode">Country Code</label>
-                            <input type="text" name="pickupPhoneCode" id="pickup-phone-code"
-                                placeholder="+ (Country Code)">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="pickupPhone">Contact Number</label>
-                            <input type="tel" name="pickupPhone" id="pickup-phone" placeholder="Contact Number">
-                        </div>
-
+                        <input type="hidden" name="pickupPhoneCode" id="pickup-phone-code">
                     </div>
                 </div>
 
@@ -888,15 +855,13 @@
                         </select>
                     </div>
                 </div> -->
-                <div class="col">
+
+                <!-- <div class="col">
                     <div class="form-group">
                         <label for="fileUpload">Attach File</label>
                         <input type="file" name="fileUpload" id="file-upload">
                     </div>
-                </div>
-            </div>
-
-            <div class="row">
+                </div> -->
 
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
@@ -904,26 +869,47 @@
                         <select name="containerType" id="container-type">
                             <option value="" selected disabled hidden>Select Type of Container</option>
                             <option value="20FT General">20FT General</option>
-                            <option value="20FT High Cube">20FT High Cube</option>
                             <option value="40FT General">40FT General</option>
+                            <option value="20FT High Cube">20FT High Cube</option>
                             <option value="40FT High Cube">40FT High Cube</option>
+                            <option value="20FT Refregerated">20FT Refregerated</option>
+                            <option value="40FT Refregerated">40FT Refregerated</option>
                             <option value="LCL Cargo">LCL Cargo</option>
                             <option value="N.A.">N.A. (For Air Shipments Only)</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- <div class="col-lg-12 col-md-12">
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12">
+                    <h4>Shipment Volume</h4>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label for="shipmentVolume">Shipment Volume</label>
-                        <select name="shipmentVolume" id="shipment-volume">
-                            <option value="" selected disabled hidden>Select Shipment Volume</option>
-                            <option value="Gross Weight (Kgs)">Gross Weight (Kgs)</option>
-                            <option value="No. of Packages">No. of Packages</option>
-                            <option value="Total Voume (CBM)">Total Voume (CBM)</option>
-                        </select>
+                        <label for="grossWeight">Gross Weight (Kgs)</label>
+                        <input type="text" name="grossWeight" id="gross-weight"
+                            placeholder="Enter Gross Weight (in Kgs)">
                     </div>
-                </div> -->
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                        <label for="numOfPkg">No. of Packages</label>
+                        <input type="text" name="numOfPkg" id="num-of-pkg" placeholder="Enter No. of Packages">
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                        <label for="totalVolume">Total Voume (CBM)</label>
+                        <input type="text" name="totalVolume" id="total-volume" placeholder="Enter Total Voume (CBM)">
+                    </div>
+                </div>
 
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
@@ -942,5 +928,73 @@
 </body>
 
 <%- include('./partials/footer'); -%>
+
+<!-- intel-tel-input Plugin -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<script>
+    // Getting IP address to find user's country
+    var getIp = function (callback) {
+        fetch('https://ipinfo.io/json?token=7782014afc48ae', {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then((response) => response.json())
+            .catch(() => {
+                return {
+                    country: 'us',
+                };
+            })
+            .then((response) => callback(response.country));
+    };
+
+    // Initialising intel-tel-input for user phone field
+
+    var userInput = document.querySelector("#phone");
+    var itiUser = window.intlTelInput(userInput, {
+        initialCountry: "auto",
+        geoIpLookup: getIp,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    // Setting phone dial code of user field
+
+    var countryDataUser = itiUser.getSelectedCountryData();
+    var countryCodeUser = countryDataUser.dialCode;
+    document.getElementById("user-phone-code").value = countryCodeUser;
+    console.log(countryCodeUser);
+
+    userInput.addEventListener("countrychange", function () {
+        countryDataUser = itiUser.getSelectedCountryData();
+        countryCodeUser = countryDataUser.dialCode;
+        document.getElementById("user-phone-code").value = countryCodeUser;
+        console.log(countryCodeUser);
+    });
+
+    // Initialising intel-tel-input for shipment phone field
+
+    var ShipmentInput = document.querySelector("#pickup-phone");
+    var itiShipment = window.intlTelInput(ShipmentInput, {
+        initialCountry: "auto",
+        geoIpLookup: getIp,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    // Setting phone dial code of shipment field
+
+    var countryDataShipment = itiShipment.getSelectedCountryData();
+    var countryCodeShipment = countryDataShipment.dialCode;
+    document.getElementById("pickup-phone-code").value = countryCodeShipment;
+    console.log(countryCodeShipment);
+
+    ShipmentInput.addEventListener("countrychange", function () {
+        countryDataShipment = itiShipment.getSelectedCountryData();
+        countryCodeShipment = countryDataShipment.dialCode;
+        document.getElementById("pickup-phone-code").value = countryCodeShipment;
+        console.log(countryCodeShipment);
+    });
+</script>
 
 </html>

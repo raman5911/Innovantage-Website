@@ -87,7 +87,10 @@ app.get("/value_added_services_contact_form", function (req, res) {
 
 const mongodb = 'mongodb+srv://admin:admin@innovantage@cluster0.0sxn0.mongodb.net/innovantage-db?retryWrites=true&w=majority';
 
-mongoose.connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongodb, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 const Schema = mongoose.Schema;
 
@@ -223,14 +226,97 @@ const freightSchema = new Schema({
   container_type: {
     type: String
   },
-  shipment_volume: {
+  gross_weight: {
+    type: String
+  },
+  number_of_packages: {
+    type: String
+  },
+  total_volume: {
     type: String
   }
 });
 
-const Freight = mongoose.model('User', freightSchema);
+const Freight = mongoose.model('Freight', freightSchema, 'users');
 
 const customSchema = new Schema({
+  _id: {
+    type: String
+  },
+  service: {
+    type: String
+  },
+  status: {
+    type: String
+  },
+  shipment_type: {
+    type: String
+  },
+  user_name: {
+    type: String
+  },
+  user_address: {
+    type: String
+  },
+  user_country_code: {
+    type: String
+  },
+  user_phone_number: {
+    type: String
+  },
+  user_email_address: {
+    type: String
+  },
+  shipment_address: {
+    type: String
+  },
+  code: {
+    type: String
+  },
+  shipment_country_code: {
+    type: String
+  },
+  shipment_phone_number: {
+    type: String
+  },
+  shipment_from: {
+    type: String
+  },
+  origin_port: {
+    type: String
+  },
+  shipment_to: {
+    type: String
+  },
+  destination_port: {
+    type: String
+  },
+  shipment_mode: {
+    type: String
+  },
+  commodity_name: {
+    type: String
+  },
+  container_type: {
+    type: String
+  },
+  gross_weight: {
+    type: String
+  },
+  number_of_packages: {
+    type: String
+  },
+  total_volume: {
+    type: String
+  },
+  shipment_per_month: {
+    type: String
+  }
+});
+
+const Custom = mongoose.model('Custom', customSchema, 'users');
+
+const transportSchema = new Schema({
   _id: {
     type: String
   },
@@ -255,9 +341,139 @@ const customSchema = new Schema({
   user_email_address: {
     type: String
   },
+  pickup_address: {
+    type: String
+  },
+  destination_address: {
+    type: String
+  },
+  vehicle_type: {
+    type: String
+  },
+  vehicle_size: {
+    type: String
+  },
+  packing_type: {
+    type: String
+  },
+  other_specs: {
+    type: String
+  },
+  package_per_unit: {
+    type: String
+  },
+  package_weight: {
+    type: String
+  },
+  shipment_weight: {
+    type: String
+  },
+  measurement_unit: {
+    type: String
+  },
+  length: {
+    type: String
+  },
+  width: {
+    type: String
+  },
+  height: {
+    type: String
+  }
 });
 
-const Custom = mongoose.model('Custom', customSchema);
+const Transport = mongoose.model('Transport', transportSchema, 'users');
+
+const warehouseSchema = new Schema({
+  _id: {
+    type: String
+  },
+  service: {
+    type: String
+  },
+  status: {
+    type: String
+  },
+  user_name: {
+    type: String
+  },
+  user_address: {
+    type: String
+  },
+  user_country_code: {
+    type: String
+  },
+  user_phone_number: {
+    type: String
+  },
+  user_email_address: {
+    type: String
+  },
+  warehouse_city: {
+    type: String
+  },
+  specific_location: {
+    type: String
+  },
+  covered_area: {
+    type: String
+  },
+  open_area: {
+    type: String
+  },
+  commodity_storage: {
+    type: String
+  },
+  infrastructure_options: {
+    type: String
+  },
+  manpower_options: {
+    type: String
+  },
+  security_options: {
+    type: String
+  },
+  other_requirements: {
+    type: String
+  },
+  work_scope: {
+    type: String
+  },
+});
+
+const Warehouse = mongoose.model('Warehouse', warehouseSchema, 'users');
+
+const valueAddedSchema = new Schema({
+  _id: {
+    type: String
+  },
+  service: {
+    type: String
+  },
+  status: {
+    type: String
+  },
+  user_name: {
+    type: String
+  },
+  user_address: {
+    type: String
+  },
+  user_country_code: {
+    type: String
+  },
+  user_phone_number: {
+    type: String
+  },
+  user_email_address: {
+    type: String
+  },
+  service_type: {
+    type: String
+  }
+});
+
+const ValueAdded = mongoose.model('Value Added', valueAddedSchema, 'users');
 
 function getRandomId(type) {
   const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 9);
@@ -310,16 +526,16 @@ app.post("/freight_forwarding_contact_form", function (req, res) {
     commodity_type: req.body.commodityType,
     container_type: req.body.containerType,
     gross_weight: req.body.grossWeight,
-    num_of_pkg: req.body.numOfPkg,
+    number_of_packages: req.body.numOfPkg,
     total_volume: req.body.totalVolume
   });
 
   freightUser.save(function (err, data) {
     if (err)
-      res.send("An Error Occured! Please try again.");
+      res.render("submission_fail");
 
     else
-      res.send("Data received");
+      res.render("submission_success");
   });
 });
 
@@ -327,22 +543,125 @@ app.post("/custom_clearance_contact_form", function (req, res) {
   const customUser = new Custom({
     _id: getRandomId("custom"),
     service: "Custom Clearance",
+    status: "Not Assigned",
     user_name: req.body.userName,
     user_address: req.body.userAddress,
     user_country_code: req.body.userPhoneCode,
     user_phone_number: req.body.userPhone,
-    user_email_address: req.body.userEmail
+    user_email_address: req.body.userEmail,
+    shipment_address: req.body.pickupAddress,
+    code: req.body.pickupCode,
+    shipment_country_code: req.body.pickupPhoneCode,
+    shipment_phone_number: req.body.pickupPhone,
+    shipment_from: req.body.pickupFrom,
+    origin_port: req.body.originPort,
+    shipment_to: req.body.dropTo,
+    destination_port: req.body.destinationPort,
+    shipment_mode: req.body.shipmentMode,
+    commodity_name: req.body.commodityName,
+    container_type: req.body.containerType,
+    gross_weight: req.body.grossWeight,
+    number_of_packages: req.body.numOfPkg,
+    total_volume: req.body.totalVolume,
+    shipment_per_month: req.body.numOfShip
   });
 
   customUser.save(function (err, data) {
     if (err)
-      res.send("An Error Occured! Please try again.");
+      res.render("submission_fail");
 
     else
-      res.send("Data received");
+      res.render("submission_success");
   });
 });
 
+app.post("/transportation_management_contact_form", function (req, res) {
+
+  const transportUser = new Transport({
+    _id: getRandomId("transport"),
+    service: "Transport Management",
+    status: "Not Assigned",
+    user_name: req.body.userName,
+    user_address: req.body.userAddress,
+    user_country_code: req.body.userPhoneCode,
+    user_phone_number: req.body.userPhone,
+    user_email_address: req.body.userEmail,
+    pickup_address: req.body.pickupAddress,
+    destination_address: req.body.destAddress,
+    vehicle_type: req.body.vehicleType,
+    vehicle_size: req.body.vehicleSize,
+    packing_type: req.body.packingType,
+    other_specs: req.body.otherSpecs,
+    package_per_unit: req.body.packagePerUnit,
+    package_weight: req.body.packageWt,
+    shipment_weight: req.body.shipmentWt,
+    measurement_unit: req.body.measurementUnit,
+    length: req.body.length,
+    width: req.body.width,
+    height: req.body.height,
+  });
+
+  transportUser.save(function (err, data) {
+    if (err)
+      res.render("submission_fail");
+
+    else
+      res.render("submission_success");
+  })
+});
+
+app.post("/warehouse_management_contact_form", function (req, res) {
+  const warehouseUser = new Warehouse({
+    _id: getRandomId("warehouse"),
+    service: "Warehouse Management",
+    status: "Not Assigned",
+    user_name: req.body.userName,
+    user_address: req.body.userAddress,
+    user_country_code: req.body.userPhoneCode,
+    user_phone_number: req.body.userPhone,
+    user_email_address: req.body.userEmail,
+    warehouse_city: req.body.warehouseCity,
+    specific_location: req.body.specificLocation,
+    covered_area: req.body.coveredArea,
+    open_area: req.body.openArea,
+    commodity_storage: req.body.commodityStorage,
+    infrastructure_options: req.body.infraOptions,
+    manpower_options: req.body.manpowOptions,
+    security_options: req.body.securityOptions,
+    other_requirements: req.body.otherReq,
+    work_scope: req.body.workScope
+  });
+
+  warehouseUser.save(function (err, data) {
+    if (err)
+      res.render("submission_fail");
+
+    else
+      res.render("submission_success");
+  });
+});
+
+app.post("/value_added_services_contact_form", function (req, res) {
+  const valueAddedUser = new ValueAdded({
+    _id: getRandomId("value"),
+    service: "Value Added Services",
+    status: "Not Assigned",
+    user_name: req.body.userName,
+    user_address: req.body.userAddress,
+    user_country_code: req.body.userPhoneCode,
+    user_phone_number: req.body.userPhone,
+    user_email_address: req.body.userEmail,
+    service_type: req.body.serviceType
+  });
+
+  valueAddedUser.save(function (err, data) {
+    if (err)
+      res.render("submission_fail");
+
+    else
+      res.render("submission_success");
+  });
+});
 
 app.get("/api/count/freight_forwarding", function (req, res) {
   Freight.find().countDocuments(function (err, data) {
@@ -387,7 +706,9 @@ app.get("/api/freight_forwarding/:page", function (req, res) {
 app.get("/api/freight_forwarding/:id", function (req, res) {
   var id = req.params.id;
 
-  Freight.find({ _id: id }, function (err, data) {
+  Freight.find({
+    _id: id
+  }, function (err, data) {
     if (err)
       res.send(err);
 
@@ -419,7 +740,15 @@ app.get("/api/search/:id", function (req, res) {
   console.log(queryType);
 
   if (queryType == 'F') {
-    Freight.find({ $and: [{ _id: requestedQueryId }, { _id: { $exists: true } }] }, function (err, data) {
+    Freight.find({
+      $and: [{
+        _id: requestedQueryId
+      }, {
+        _id: {
+          $exists: true
+        }
+      }]
+    }, function (err, data) {
 
       if (err)
         res.send([]);
@@ -430,33 +759,19 @@ app.get("/api/search/:id", function (req, res) {
       }
 
     });
-  }
+  } else if (queryType == 'C') {
 
-  else if (queryType == 'C') {
+  } else if (queryType == 'T') {
 
-  }
+  } else if (queryType == 'C') {
 
-  else if (queryType == 'T') {
+  } else if (queryType == 'W') {
 
-  }
+  } else if (queryType == 'W') {
 
-  else if (queryType == 'C') {
+  } else if (queryType == 'V') {
 
-  }
-
-  else if (queryType == 'W') {
-
-  }
-
-  else if (queryType == 'W') {
-
-  }
-
-  else if (queryType == 'V') {
-
-  }
-
-  else {
+  } else {
     res.send([]);
   }
 });
@@ -465,7 +780,9 @@ app.post("/api/editData", function (req, res) {
 
   var requestedId = req.body.id;
 
-  Freight.findOne({ id: requestedId }, function (err, data) {
+  Freight.findOne({
+    id: requestedId
+  }, function (err, data) {
     data.shipment_type = req.body.shipmentType;
     data.delivery_incoterms = req.body.deliveryIncoterms;
     data.user_name = req.body.userName;
@@ -512,21 +829,13 @@ app.get("/api/delete/:id", function (req, res) {
         // res.send(data);
         res.send("Data deleted successfully");
     });
-  }
+  } else if (queryType == 'C') {
 
-  else if (queryType == 'C') {
+  } else if (queryType == 'T') {
 
-  }
+  } else if (queryType == 'W') {
 
-  else if (queryType == 'T') {
-
-  }
-
-  else if (queryType == 'W') {
-
-  }
-
-  else if (queryType == 'V') {
+  } else if (queryType == 'V') {
 
   }
 });
@@ -539,40 +848,32 @@ app.post("/api/changeStatus", function (req, res) {
 
   if (idType == 'F') {
     // console.log(req.body.value);
-    Freight.findOneAndUpdate({ _id: requestedId }, { status: req.body.value }, { new: true }, function (err, result) {
+    Freight.findOneAndUpdate({
+      _id: requestedId
+    }, {
+      status: req.body.value
+    }, {
+      new: true
+    }, function (err, result) {
       if (err)
         res.send("Error");
 
       else
         res.send("Success");
     });
-  }
+  } else if (idType == 'C') {
 
-  else if (idType == 'C') {
+  } else if (idType == 'C') {
 
-  }
+  } else if (idType == 'T') {
 
-  else if (idType == 'C') {
+  } else if (idType == 'W') {
 
-  }
+  } else if (idType == 'F') {
 
-  else if (idType == 'T') {
+  } else if (idType == 'W') {
 
-  }
-
-  else if (idType == 'W') {
-
-  }
-
-  else if (idType == 'F') {
-
-  }
-
-  else if (idType == 'W') {
-
-  }
-
-  else if (idType == 'V') {
+  } else if (idType == 'V') {
 
   }
 
