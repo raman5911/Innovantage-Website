@@ -579,7 +579,7 @@ app.post("/transportation_management_contact_form", function (req, res) {
 
   const transportUser = new Transport({
     _id: getRandomId("transport"),
-    service: "Transport Management",
+    service: "Transportation Management",
     status: "Not Assigned",
     user_name: req.body.userName,
     user_address: req.body.userAddress,
@@ -674,7 +674,9 @@ app.get("/api/count/freight_forwarding", function (req, res) {
 });
 
 app.get("/api/freight_forwarding", function (req, res) {
-  Freight.find({}, function (err, data) {
+  Freight.find({
+    service: "Freight Forwarding"
+  }, function (err, data) {
     if (err)
       res.send(err);
 
@@ -721,7 +723,9 @@ app.get("/api/freight_forwarding/:id", function (req, res) {
 
 
 app.get("/api/custom_clearance", function (req, res) {
-  Custom.find({}, function (err, data) {
+  Custom.find({
+    service: "Custom Clearance"
+  }, function (err, data) {
     if (err)
       res.send(err);
 
@@ -730,8 +734,49 @@ app.get("/api/custom_clearance", function (req, res) {
       console.log(data);
     }
   });
-})
+});
 
+app.get("/api/transportation_management", function (req, res) {
+  Transport.find({
+    service: "Transportation Management"
+  }, function (err, data) {
+    if (err)
+      res.send(err);
+
+    else {
+      res.send(data);
+      console.log(data);
+    }
+  });
+});
+
+app.get("/api/warehouse_management", function (req, res) {
+  Warehouse.find({
+    service: "Warehouse Management"
+  }, function (err, data) {
+    if (err)
+      res.send(err);
+
+    else {
+      res.send(data);
+      console.log(data);
+    }
+  });
+});
+
+app.get("/api/value_added_services", function (req, res) {
+  ValueAdded.find({
+    service: "Value Added Services"
+  }, function (err, data) {
+    if (err)
+      res.send(err);
+
+    else {
+      res.send(data);
+      console.log(data);
+    }
+  });
+});
 
 app.get("/api/search/:id", function (req, res) {
   const requestedQueryId = req.params.id;
@@ -776,7 +821,7 @@ app.get("/api/search/:id", function (req, res) {
   }
 });
 
-app.post("/api/editData", function (req, res) {
+app.post("/api/freight/editData", function (req, res) {
 
   var requestedId = req.body.id;
 
@@ -802,7 +847,9 @@ app.post("/api/editData", function (req, res) {
     data.commodity_name = req.body.commodityName;
     data.commodity_type = req.body.commodityType;
     data.container_type = req.body.containerType;
-    data.shipment_volume = req.body.shipmentVolume;
+    data.gross_weight = req.body.grossWeight;
+    data.number_of_packages = req.body.numOfPkg;
+    data.total_volume = req.body.totalVolume;
 
     data.save(function (err, result) {
       if (err)

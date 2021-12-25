@@ -110,15 +110,6 @@ class ShowFreightData extends React.Component {
 					</div>
 
 					<div className="outer-div">
-						<p>
-							<b>Shipment type:</b> {user.shipment_type}{" "}
-						</p>
-						<p>
-							<b>Delivery Incoterms:</b> {user.delivery_incoterms}{" "}
-						</p>
-					</div>
-
-					<div className="outer-div">
 						<h4>Customer Details</h4>
 
 						<div className="inner-div">
@@ -144,6 +135,12 @@ class ShowFreightData extends React.Component {
 						<h4>Shipment Details</h4>
 
 						<div className="inner-div">
+							<p>
+								<b>Shipment type:</b> {user.shipment_type}{" "}
+							</p>
+							<p>
+								<b>Delivery Incoterms:</b> {user.delivery_incoterms}{" "}
+							</p>
 							<p>
 								<b>Shipment Address:</b> {user.shipment_address}{" "}
 							</p>
@@ -184,27 +181,30 @@ class ShowFreightData extends React.Component {
 								<b>Commodity Type:</b> {user.commodity_type}{" "}
 							</p>
 							<p>
+								<b>Type of Containers / LCL Cargo:</b>{" "}
+								{user.container_type}{" "}
+							</p>
+							<p>
 								<b>MSDS Report:</b>
 							</p>
 						</div>
 					</div>
 
 					<div className="outer-div">
-						<p>
-							<b>Type of Containers / LCL Cargo:</b>{" "}
-							{user.container_type}{" "}
-						</p>
-						<p>
-							<b>Gross Weight (Kgs):</b> {user.gross_weight}{" "}
-						</p>
-						<p>
-							<b>No. of Packages:</b>
-							{user.num_of_pkg}
-						</p>
-						<p>
-							<b>Total Voume (CBM):</b>
-							{user.total_volume}
-						</p>
+						<h4>Shipment Volume</h4>
+						<div className="inner-div">
+							<p>
+								<b>Gross Weight (Kgs):</b> {user.gross_weight}{" "}
+							</p>
+							<p>
+								<b>No. of Packages: </b>
+								{user.number_of_packages}
+							</p>
+							<p>
+								<b>Total Voume (CBM): </b>
+								{user.total_volume}
+							</p>
+						</div>
 					</div>
 				</div>
 			);
