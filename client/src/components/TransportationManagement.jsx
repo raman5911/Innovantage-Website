@@ -18,7 +18,7 @@ import {
 	faCalendarCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
-class WarehouseManagement extends React.Component {
+class TransportationManagement extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -35,7 +35,7 @@ class WarehouseManagement extends React.Component {
 	}
 
 	fetchData() {
-		fetch("/api/warehouse_management")
+		fetch("/api/transportation_management")
 			.then((res) => res.json())
 			.then((result) => {
 				console.log(result);
@@ -78,11 +78,11 @@ class WarehouseManagement extends React.Component {
 	}
 
 	goToView(user) {
-		this.props.history.push("/dashboard/showWarehouseData", { id: user._id });
+		this.props.history.push("/dashboard/showTransportData", { id: user._id });
 	}
 
 	editData(user) {
-		this.props.history.push("/dashboard/editWarehouseData", {
+		this.props.history.push("/dashboard/editTransportData", {
 			userData: user,
 		});
 		this.fetchData();
@@ -336,4 +336,4 @@ class WarehouseManagement extends React.Component {
 	}
 }
 
-export default withRouter(WarehouseManagement);
+export default withRouter(TransportationManagement);

@@ -868,7 +868,9 @@ app.get("/api/search/:id", function (req, res) {
       }
 
     });
-  } else if (queryType == 'C') {
+  } 
+  
+  else if (queryType == 'C') {
     Custom.find({
       $and: [{
         _id: requestedQueryId
@@ -888,17 +890,75 @@ app.get("/api/search/:id", function (req, res) {
       }
 
     });
-  } else if (queryType == 'T') {
+  } 
+  
+  else if (queryType == 'T') {
+    Transport.find({
+      $and: [{
+        _id: requestedQueryId
+      }, {
+        _id: {
+          $exists: true
+        }
+      }]
+    }, function (err, data) {
 
-  } else if (queryType == 'C') {
+      if (err)
+        res.send([]);
 
-  } else if (queryType == 'W') {
+      else {
+        console.log(data);
+        res.json(data);
+      }
 
-  } else if (queryType == 'W') {
+    });
+  } 
+  
+  else if (queryType == 'W') {
+    Warehouse.find({
+      $and: [{
+        _id: requestedQueryId
+      }, {
+        _id: {
+          $exists: true
+        }
+      }]
+    }, function (err, data) {
 
-  } else if (queryType == 'V') {
+      if (err)
+        res.send([]);
 
-  } else {
+      else {
+        console.log(data);
+        res.json(data);
+      }
+
+    });
+  } 
+  
+  else if (queryType == 'V') {
+    ValueAdded.find({
+      $and: [{
+        _id: requestedQueryId
+      }, {
+        _id: {
+          $exists: true
+        }
+      }]
+    }, function (err, data) {
+
+      if (err)
+        res.send([]);
+
+      else {
+        console.log(data);
+        res.json(data);
+      }
+
+    });
+  } 
+  
+  else {
     res.send([]);
   }
 });
@@ -974,6 +1034,104 @@ app.post("/api/custom/editData", function (req, res) {
     CustomData.shipment_per_month = req.body.numOfShip;
 
     CustomData.save(function (err, result) {
+      if (err)
+        res.send("An Error Occured! Please try again.");
+
+      else
+        res.send("Data updated");
+    });
+  });
+
+});
+
+app.post("/api/transportation_management/editData", function (req, res) {
+
+  var requestedTransportId = req.body.id;
+
+  Transport.findOne({
+    _id: requestedTransportId
+  }, function (err, TransportData) {
+    TransportData.shipment_type = req.body.shipmentType;
+    TransportData.user_name = req.body.userName;
+    TransportData.user_address = req.body.userAddress;
+    TransportData.user_country_code = req.body.userPhoneCode;
+    TransportData.user_phone_number = req.body.userPhone;
+    TransportData.user_email_address = req.body.userEmail;
+    TransportData.pickup_address = req.body.pickupAddress;
+    TransportData.destination_address = req.body.destAddress;
+    TransportData.vehicle_type = req.body.vehicleType;
+    TransportData.vehicle_size = req.body.vehicleSize;
+    TransportData.packing_type = req.body.packingType;
+    TransportData.other_specs = req.body.otherSpecs;
+    TransportData.package_per_unit = req.body.packagePerUnit;
+    TransportData.package_weight = req.body.packageWt;
+    TransportData.shipment_weight = req.body.shipmentWt;
+    TransportData.measurement_unit = req.body.measurementUnit;
+    TransportData.length = req.body.length;
+    TransportData.width = req.body.width;
+    TransportData.height = req.body.height;
+
+    TransportData.save(function (err, result) {
+      if (err)
+        res.send("An Error Occured! Please try again.");
+
+      else
+        res.send("Data updated");
+    });
+  });
+
+});
+
+app.post("/api/warehouse_management/editData", function (req, res) {
+
+  var requestedWarehouseId = req.body.id;
+
+  Warehouse.findOne({
+    _id: requestedWarehouseId
+  }, function (err, WarehouseData) {
+    WarehouseData.shipment_type = req.body.shipmentType;
+    WarehouseData.user_name = req.body.userName;
+    WarehouseData.user_address = req.body.userAddress;
+    WarehouseData.user_country_code = req.body.userPhoneCode;
+    WarehouseData.user_phone_number = req.body.userPhone;
+    WarehouseData.user_email_address = req.body.userEmail;
+    WarehouseData.warehouse_city = req.body.warehouseCity;
+    WarehouseData.specific_location = req.body.specificLocation;
+    WarehouseData.covered_area = req.body.coveredArea;
+    WarehouseData.open_area = req.body.openArea;
+    WarehouseData.commodity_storage = req.body.commodityStorage;
+    WarehouseData.infrastructure_options = req.body.infraOptions;
+    WarehouseData.manpower_options = req.body.manpowOptions;
+    WarehouseData.security_options = req.body.securityOptions;
+    WarehouseData.other_requirements = req.body.otherReq;
+    WarehouseData.work_scope = req.body.workScope;
+
+    WarehouseData.save(function (err, result) {
+      if (err)
+        res.send("An Error Occured! Please try again.");
+
+      else
+        res.send("Data updated");
+    });
+  });
+
+});
+
+app.post("/api/value_added_services/editData", function (req, res) {
+
+  var requestedValueAddedId = req.body.id;
+
+  ValueAdded.findOne({
+    _id: requestedValueAddedId
+  }, function (err, ValueAddedData) {
+    ValueAddedData.user_name = req.body.userName;
+    ValueAddedData.user_address = req.body.userAddress;
+    ValueAddedData.user_country_code = req.body.userPhoneCode;
+    ValueAddedData.user_phone_number = req.body.userPhone;
+    ValueAddedData.user_email_address = req.body.userEmail;
+    ValueAddedData.service_type = req.body.serviceType;
+
+    ValueAddedData.save(function (err, result) {
       if (err)
         res.send("An Error Occured! Please try again.");
 

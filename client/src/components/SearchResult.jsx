@@ -119,20 +119,56 @@ class SearchResult extends React.Component {
 
 	goToView(user) {
 		var id = this.state.id;
+		var type = id.charAt(0);
 
-		if (id.charAt(0) === "F")
-			this.props.history.push("/dashboard/showFreightData", {
-				id: user._id,
-			});
+		var url = "";
+
+		if (type === "F") {
+			url = "/dashboard/showFreightData";
+		}
+		else if(type === "C") {
+			url = "/dashboard/showCustomData";
+		}
+		else if(type === "T") {
+			url = "/dashboard/showTransportData";
+		}
+		else if(type === "W") {
+			url = "/dashboard/showWarehouseData";
+		}
+		else if(type === "V") {
+			url = "/dashboard/showValueAddedData";
+		}
+
+		this.props.history.push(url, {
+			id: user._id,
+		});
 	}
 
 	editData(user) {
 		var id = this.state.id;
+		var type = id.charAt(0);
 
-		if (id.charAt(0) === "F")
-			this.props.history.push("/dashboard/editFreightData", {
+		var url = "";
+
+		if (type === "F") {
+			url = "/dashboard/editFreightData";
+		}
+		else if(type === "C") {
+			url = "/dashboard/editCustomData";
+		}
+		else if(type === "T") {
+			url = "/dashboard/editTransportData";
+		}
+		else if(type === "W") {
+			url = "/dashboard/editWarehouseData";
+		}
+		else if(type === "V") {
+			url = "/dashboard/editValueAddedData";
+		}
+
+		this.props.history.push(url, {
 				userData: user,
-			});
+		});
 	}
 
 	changeStatus(user) {

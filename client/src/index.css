@@ -29,7 +29,7 @@ h6 {
 	padding: 1rem;
 	padding-left: 0;
 	margin-right: 0.5rem;
-	width: 370px;
+	width: 390px;
 	height: 90vh;
 	position: sticky;
 	top: 0;
@@ -52,7 +52,7 @@ h6 {
 	padding: 0.5rem 0.65rem;
 	border-radius: 50%;
 	position: relative;
-	left: 14.6rem;
+	left: 15.6rem;
 	margin-bottom: 0.5rem;
 	transition: all ease 0.3s;
 }
@@ -148,7 +148,7 @@ a:hover .li-Icon {
 }
 
 .hide button {
-	left: 0.3rem;
+	left: 0.35rem;
 }
 
 .navbar {

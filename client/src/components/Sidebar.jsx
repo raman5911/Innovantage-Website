@@ -66,7 +66,7 @@ function Sidebar() {
 							icon={faShippingFast}
 							className="li-Icon"
 						/>
-						Transportation
+						Transportation Management
 					</NavLink>
 				</li>
 
