@@ -544,6 +544,7 @@ app.post("/custom_clearance_contact_form", function (req, res) {
     _id: getRandomId("custom"),
     service: "Custom Clearance",
     status: "Not Assigned",
+    shipment_type: req.body.shipmentType,
     user_name: req.body.userName,
     user_address: req.body.userAddress,
     user_country_code: req.body.userPhoneCode,
@@ -721,6 +722,69 @@ app.get("/api/freight_forwarding/:id", function (req, res) {
   });
 });
 
+app.get("/api/custom_clearance/:id", function (req, res) {
+  var id = req.params.id;
+
+  Custom.find({
+    _id: id
+  }, function (err, data) {
+    if (err)
+      res.send(err);
+
+    else {
+      res.send(data);
+      console.log(data);
+    }
+  });
+});
+
+app.get("/api/warehouse_management/:id", function (req, res) {
+  var id = req.params.id;
+
+  Warehouse.find({
+    _id: id
+  }, function (err, data) {
+    if (err)
+      res.send(err);
+
+    else {
+      res.send(data);
+      console.log(data);
+    }
+  });
+});
+
+app.get("/api/transportation_management/:id", function (req, res) {
+  var id = req.params.id;
+
+  Transport.find({
+    _id: id
+  }, function (err, data) {
+    if (err)
+      res.send(err);
+
+    else {
+      res.send(data);
+      console.log(data);
+    }
+  });
+});
+
+app.get("/api/value_added_services/:id", function (req, res) {
+  var id = req.params.id;
+
+  ValueAdded.find({
+    _id: id
+  }, function (err, data) {
+    if (err)
+      res.send(err);
+
+    else {
+      res.send(data);
+      console.log(data);
+    }
+  });
+});
 
 app.get("/api/custom_clearance", function (req, res) {
   Custom.find({
@@ -805,7 +869,25 @@ app.get("/api/search/:id", function (req, res) {
 
     });
   } else if (queryType == 'C') {
+    Custom.find({
+      $and: [{
+        _id: requestedQueryId
+      }, {
+        _id: {
+          $exists: true
+        }
+      }]
+    }, function (err, data) {
 
+      if (err)
+        res.send([]);
+
+      else {
+        console.log(data);
+        res.json(data);
+      }
+
+    });
   } else if (queryType == 'T') {
 
   } else if (queryType == 'C') {
@@ -823,35 +905,75 @@ app.get("/api/search/:id", function (req, res) {
 
 app.post("/api/freight/editData", function (req, res) {
 
-  var requestedId = req.body.id;
+  var requestedFreightId = req.body.id;
 
   Freight.findOne({
-    id: requestedId
-  }, function (err, data) {
-    data.shipment_type = req.body.shipmentType;
-    data.delivery_incoterms = req.body.deliveryIncoterms;
-    data.user_name = req.body.userName;
-    data.user_address = req.body.userAddress;
-    data.user_country_code = req.body.userPhoneCode;
-    data.user_phone_number = req.body.userPhone;
-    data.user_email_address = req.body.userEmail;
-    data.shipment_address = req.body.pickupAddress;
-    data.code = req.body.pickupCode;
-    data.shipment_country_code = req.body.pickupPhoneCode;
-    data.shipment_phone_number = req.body.pickupPhone;
-    data.shipment_from = req.body.pickupFrom;
-    data.origin_port = req.body.originPort;
-    data.shipment_to = req.body.dropTo;
-    data.destination_port = req.body.destinationPort;
-    data.shipment_mode = req.body.shipmentMode;
-    data.commodity_name = req.body.commodityName;
-    data.commodity_type = req.body.commodityType;
-    data.container_type = req.body.containerType;
-    data.gross_weight = req.body.grossWeight;
-    data.number_of_packages = req.body.numOfPkg;
-    data.total_volume = req.body.totalVolume;
+    _id: requestedFreightId
+  }, function (err, FreightData) {
+    FreightData.shipment_type = req.body.shipmentType;
+    FreightData.delivery_incoterms = req.body.deliveryIncoterms;
+    FreightData.user_name = req.body.userName;
+    FreightData.user_address = req.body.userAddress;
+    FreightData.user_country_code = req.body.userPhoneCode;
+    FreightData.user_phone_number = req.body.userPhone;
+    FreightData.user_email_address = req.body.userEmail;
+    FreightData.shipment_address = req.body.pickupAddress;
+    FreightData.code = req.body.pickupCode;
+    FreightData.shipment_country_code = req.body.pickupPhoneCode;
+    FreightData.shipment_phone_number = req.body.pickupPhone;
+    FreightData.shipment_from = req.body.pickupFrom;
+    FreightData.origin_port = req.body.originPort;
+    FreightData.shipment_to = req.body.dropTo;
+    FreightData.destination_port = req.body.destinationPort;
+    FreightData.shipment_mode = req.body.shipmentMode;
+    FreightData.commodity_name = req.body.commodityName;
+    FreightData.commodity_type = req.body.commodityType;
+    FreightData.container_type = req.body.containerType;
+    FreightData.gross_weight = req.body.grossWeight;
+    FreightData.number_of_packages = req.body.numOfPkg;
+    FreightData.total_volume = req.body.totalVolume;
 
-    data.save(function (err, result) {
+    FreightData.save(function (err, result) {
+      if (err)
+        res.send("An Error Occured! Please try again.");
+
+      else
+        res.send("Data updated");
+    });
+  });
+
+});
+
+app.post("/api/custom/editData", function (req, res) {
+
+  var requestedCustomId = req.body.id;
+
+  Custom.findOne({
+    _id: requestedCustomId
+  }, function (err, CustomData) {
+    CustomData.shipment_type = req.body.shipmentType;
+    CustomData.user_name = req.body.userName;
+    CustomData.user_address = req.body.userAddress;
+    CustomData.user_country_code = req.body.userPhoneCode;
+    CustomData.user_phone_number = req.body.userPhone;
+    CustomData.user_email_address = req.body.userEmail;
+    CustomData.shipment_address = req.body.pickupAddress;
+    CustomData.code = req.body.pickupCode;
+    CustomData.shipment_country_code = req.body.pickupPhoneCode;
+    CustomData.shipment_phone_number = req.body.pickupPhone;
+    CustomData.shipment_from = req.body.pickupFrom;
+    CustomData.origin_port = req.body.originPort;
+    CustomData.shipment_to = req.body.dropTo;
+    CustomData.destination_port = req.body.destinationPort;
+    CustomData.shipment_mode = req.body.shipmentMode;
+    CustomData.commodity_name = req.body.commodityName;
+    CustomData.container_type = req.body.containerType;
+    CustomData.gross_weight = req.body.grossWeight;
+    CustomData.number_of_packages = req.body.numOfPkg;
+    CustomData.total_volume = req.body.totalVolume;
+    CustomData.shipment_per_month = req.body.numOfShip;
+
+    CustomData.save(function (err, result) {
       if (err)
         res.send("An Error Occured! Please try again.");
 
@@ -876,14 +998,50 @@ app.get("/api/delete/:id", function (req, res) {
         // res.send(data);
         res.send("Data deleted successfully");
     });
-  } else if (queryType == 'C') {
+  } 
+  
+  else if (queryType == 'C') {
+    Custom.findByIdAndDelete(requestedQueryId, function (err, data) {
+      if (err)
+        res.send(err);
 
-  } else if (queryType == 'T') {
+      else
+        // res.send(data);
+        res.send("Data deleted successfully");
+    });
+  } 
+  
+  else if (queryType == 'T') {
+    Transport.findByIdAndDelete(requestedQueryId, function (err, data) {
+      if (err)
+        res.send(err);
 
-  } else if (queryType == 'W') {
+      else
+        // res.send(data);
+        res.send("Data deleted successfully");
+    });
+  } 
+  
+  else if (queryType == 'W') {
+    Warehouse.findByIdAndDelete(requestedQueryId, function (err, data) {
+      if (err)
+        res.send(err);
 
-  } else if (queryType == 'V') {
+      else
+        // res.send(data);
+        res.send("Data deleted successfully");
+    });
+  } 
+  
+  else if (queryType == 'V') {
+    ValueAdded.findByIdAndDelete(requestedQueryId, function (err, data) {
+      if (err)
+        res.send(err);
 
+      else
+        // res.send(data);
+        res.send("Data deleted successfully");
+    });
   }
 });
 
@@ -908,20 +1066,70 @@ app.post("/api/changeStatus", function (req, res) {
       else
         res.send("Success");
     });
-  } else if (idType == 'C') {
+  } 
+  
+  else if (idType == 'C') {
+    Custom.findOneAndUpdate({
+      _id: requestedId
+    }, {
+      status: req.body.value
+    }, {
+      new: true
+    }, function (err, result) {
+      if (err)
+        res.send("Error");
 
-  } else if (idType == 'C') {
+      else
+        res.send("Success");
+    });
+  } 
+  
+  else if (idType == 'T') {
+    Transport.findOneAndUpdate({
+      _id: requestedId
+    }, {
+      status: req.body.value
+    }, {
+      new: true
+    }, function (err, result) {
+      if (err)
+        res.send("Error");
 
-  } else if (idType == 'T') {
+      else
+        res.send("Success");
+    });
+  } 
+  
+  else if (idType == 'W') {
+    Warehouse.findOneAndUpdate({
+      _id: requestedId
+    }, {
+      status: req.body.value
+    }, {
+      new: true
+    }, function (err, result) {
+      if (err)
+        res.send("Error");
 
-  } else if (idType == 'W') {
+      else
+        res.send("Success");
+    });
+  } 
+  
+  else if (idType == 'V') {
+    ValueAdded.findOneAndUpdate({
+      _id: requestedId
+    }, {
+      status: req.body.value
+    }, {
+      new: true
+    }, function (err, result) {
+      if (err)
+        res.send("Error");
 
-  } else if (idType == 'F') {
-
-  } else if (idType == 'W') {
-
-  } else if (idType == 'V') {
-
+      else
+        res.send("Success");
+    });
   }
 
 });

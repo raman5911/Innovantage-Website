@@ -10,9 +10,11 @@ import Transportation from "./Transportation";
 import WarehouseManagement from "./WarehouseManagement";
 import ValueAddedServices from "./ValueAddedServices";
 import ShowFreightData from "./ShowFreightData";
+import ShowCustomData from "./ShowCustomData";
 import SearchResult from "./SearchResult";
 import ChangeStatus from "./ChangeStatus";
 import EditFreightData from "./editFreightData/EditFreightData";
+import EditCustomData from "./EditCustomData";
 import ErrorNotFound from "./ErrorNotFound";
 
 function Main() {
@@ -56,6 +58,11 @@ function Main() {
 				></Route>
 
 				<Route
+					path="/dashboard/showCustomData"
+					component={ShowCustomData}
+				></Route>
+
+				<Route
 					path="/dashboard/changeStatus"
 					component={ChangeStatus}
 				></Route>
@@ -63,6 +70,11 @@ function Main() {
 				<Route
 					path="/dashboard/editFreightData"
 					component={EditFreightData}
+				></Route>
+
+				<Route
+					path="/dashboard/editCustomData"
+					component={EditCustomData}
 				></Route>
 
 				<Route>

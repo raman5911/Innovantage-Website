@@ -20,22 +20,47 @@ class ChangeStatus extends React.Component {
 	}
 
 	componentDidMount() {
+
+		var url = "";
+
 		if (this.props.location.state) {
 			this.setState({
 				id: this.props.location.state.id,
 				selectedValue: this.props.location.state.status,
-			});
+			}, () => {
+				var type = this.state.id.charAt(0);
+	
+				if(type === "F") {
+					url = "/api/freight_forwarding/" + this.state.id;
+				}
+	
+				else if(type === "C") {
+					url = "/api/custom_clearance/" + this.state.id;
+				}
+	
+				else if (type === 'T') {
+					url = "/api/transportation_management/" + this.state.id;
+				}
+				
+				else if (type === 'W') {
+					url = "/api/warehouse_management/" + this.state.id;
+				} 
+				
+				else if (type === 'V') {
+					url = "/api/value_added_services/" + this.state.id;
+				}
 
-			var url = "/api/freight_forwarding" + this.state.id;
+				console.log(url);
 
-			fetch(url)
-				.then((res) => res.json())
-				.then((result) => {
-					this.setState({
-						isLoaded: true,
-						data: result,
+				fetch(url)
+					.then((res) => res.json())
+					.then((result) => {
+						this.setState({
+							isLoaded: true,
+							data: result,
+						});
 					});
-				});
+			});
 		}
 	}
 

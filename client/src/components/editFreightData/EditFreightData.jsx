@@ -13,6 +13,7 @@ class EditFreightData extends React.Component {
 
 		this.state = {
 			user: [],
+            id: "",
 			shipmentType: "",
 			deliveryIncoterms: "",
 			userName: "",
@@ -50,6 +51,7 @@ class EditFreightData extends React.Component {
 			var userData = this.props.location.state.userData;
 			this.setState({
 				user: userData,
+                id: userData._id,
 				shipmentType: userData.shipment_type,
 				deliveryIncoterms: userData.delivery_incoterms,
 				userName: userData.user_name,
@@ -84,7 +86,7 @@ class EditFreightData extends React.Component {
 
 			axios
 				.post(url, {
-					id: this.state.user.id,
+                    id: this.state.id,
 					shipmentType: this.state.shipmentType,
 					deliveryIncoterms: this.state.deliveryIncoterms,
 					userName: this.state.userName,
