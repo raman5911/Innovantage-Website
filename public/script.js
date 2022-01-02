@@ -35,6 +35,13 @@ $(document).ready(function() {
 
     scrollBtn.addEventListener("click", scrollToTop);
 
+    // Changing Year in footer
+
+    var year = document.getElementById("year");
+    var currentYear = new Date().getFullYear();
+
+    year.innerHTML = currentYear;
+
     //---------------- Animate on Scroll -------------------
     AOS.init();
 });

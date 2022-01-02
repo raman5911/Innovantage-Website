@@ -584,6 +584,10 @@ footer .social {
 	margin: 0px;
 }
 
+#year {
+	display: inline;
+}
+
 .copyright-section .dev-name a {
 	color: #fe526c;
 	text-decoration: underline;
