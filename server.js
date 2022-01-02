@@ -13,6 +13,9 @@ const {
 // const axios = require("axios");
 require("dotenv").config();
 
+const sendMailToAdmin = require("./sendMailToAdmin");
+const sendMailToUser = require("./sendMailToUser");
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -23,6 +26,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use('/', express.static("public"));
+app.use('/public/images/', express.static('./public/images'));
 
 
 var urlPath = path.join(__dirname, '/public');
@@ -84,6 +88,16 @@ app.get("/transportation_management_contact_form", function (req, res) {
 app.get("/value_added_services_contact_form", function (req, res) {
   res.render("value_added_form");
 });
+
+
+// app.get("/success", function (req, res) {
+//   res.render("submission_success");
+// });
+
+// app.get("/fail", function (req, res) {
+//   res.render("submission_fail");
+// });
+
 
 const mongodb = 'mongodb+srv://admin:admin@innovantage@cluster0.0sxn0.mongodb.net/innovantage-db?retryWrites=true&w=majority';
 
@@ -534,8 +548,11 @@ app.post("/freight_forwarding_contact_form", function (req, res) {
     if (err)
       res.render("submission_fail");
 
-    else
+    else {
       res.render("submission_success");
+      sendMailToAdmin(data);
+      sendMailToUser(data);
+    }
   });
 });
 
@@ -571,8 +588,11 @@ app.post("/custom_clearance_contact_form", function (req, res) {
     if (err)
       res.render("submission_fail");
 
-    else
+    else {
       res.render("submission_success");
+      sendMailToAdmin(data);
+      sendMailToUser(data);
+    }
   });
 });
 
@@ -606,8 +626,11 @@ app.post("/transportation_management_contact_form", function (req, res) {
     if (err)
       res.render("submission_fail");
 
-    else
+    else {
       res.render("submission_success");
+      sendMailToAdmin(data);
+      sendMailToUser(data);
+    }
   })
 });
 
@@ -637,8 +660,11 @@ app.post("/warehouse_management_contact_form", function (req, res) {
     if (err)
       res.render("submission_fail");
 
-    else
+    else {
       res.render("submission_success");
+      sendMailToAdmin(data);
+      sendMailToUser(data);
+    }
   });
 });
 
@@ -659,8 +685,11 @@ app.post("/value_added_services_contact_form", function (req, res) {
     if (err)
       res.render("submission_fail");
 
-    else
+    else {
       res.render("submission_success");
+      sendMailToAdmin(data);
+      sendMailToUser(data);
+    }
   });
 });
 
@@ -1297,24 +1326,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, function () {
   console.log("Server running on localhost:" + PORT);
 });
-
-
-// let hashString = '';
-
-// bcrypt.genSalt(10, function (err, salt) {
-//   bcrypt.hash('Waheguru1#', salt, function (err, hash) {
-//     if (err) {
-//       console.log(err)
-//     } else {
-//       console.log("Hashing result: " + hash)
-
-//       bcrypt.compare('Waheguru1#', hash, function (err, result) {
-//         console.log("Password & Hash are same: " + result);
-//       });
-//     }
-//   });
-// });
-
-// bcrypt.compare('R@innov#987', '$2b$10$d/HLCfjeSw7MqCxuuFLcQ.Og04pqn.CeiMLp97jP6qjrwqbJQToGO', function (err, result) {
-//   console.log("Password & Hash are same: " + result);
-// });

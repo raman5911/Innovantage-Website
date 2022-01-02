@@ -1,14 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('./partials/header'); -%>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submission failed !</title>
-</head>
+    <title>Submission Failed !</title>
 
-<body>
-    <h1>An Error Occured! Please try again.</h1>
-</body>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 89vh;
+            padding: 1rem;
+            font-size: 17px;
+        }
+
+        .main .img-box,
+        .main h1,
+        .link-box {
+            text-align: center;
+        }
+
+        .main p {
+            margin: 0.5rem;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            background-color: #121212e3;
+            color: #fff;
+            margin-top: 1rem;
+        }
+
+        footer p {
+            margin: 1.5rem;
+        }
+
+        footer .dev-name a {
+            color: #FE526C;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 769px) {
+            .main {
+                height: auto;
+            }
+
+            .img-box {
+                text-align: left;
+            }
+
+            img {
+                transform: scale(0.65);
+            }
+
+            footer {
+                display: block;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            footer p {
+                margin: 0.3rem;
+            }
+        }
+    </style>
+
+    <!-- Google Fonts CDN -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Antic+Didone&family=Merriweather:wght@300&family=Open+Sans&display=swap"
+        rel="stylesheet">
+
+    <!-- intel-tel-input Plugin -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
+    <!-- Fontawesome Icons CDN -->
+    <script src="https://kit.fontawesome.com/5986627d7c.js" crossorigin="anonymous"></script>
+
+    <!-- Favicons -->
+    <link rel="icon" href="favicons/cropped-Innovantage-transparent-192x192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="favicons/cropped-Innovantage-transparent-180x180.png" />
+
+    </head>
+
+    <body>
+        <div class="main container">
+            <div class="img-box">
+                <img src="../public/images/submission_failed.png" alt="Submission Failed" height="300px"
+                    width="400px">
+            </div>
+            <h1>Oops! Something went wrong. 😞</h1>
+            <p>Looks like something went wrong and your form submission was failed. We suggest you to check the internet connection of your device and try to submit the form again.</p>
+        </div>
+    </body>
+
+    <%- include('./partials/footer'); -%>
 
 </html>
