@@ -32,7 +32,6 @@ class EditFreightData extends React.Component {
 			shipmentMode: "",
 			commodityName: "",
 			commodityType: "",
-			fileUpload: "",
 			containerType: "",
 			grossWeight: "",
 			numOfPkg: "",
@@ -108,7 +107,7 @@ class EditFreightData extends React.Component {
 					containerType: this.state.containerType,
 					grossWeight: this.state.grossWeight,
 					numOfPkg: this.state.numOfPkg,
-					totalVolume: this.state.totalVolume
+					totalVolume: this.state.totalVolume,
 				})
 				.then((response) => {
 					console.log(response.status);
@@ -148,7 +147,7 @@ class EditFreightData extends React.Component {
 
 	renderForm() {
 		return (
-			<form onSubmit={this.handleSubmit.bind(this)}>
+			<form onSubmit={this.handleSubmit.bind(this)} encType="multipart/form" method="POST">
 				<h2>Edit Details</h2>
 
 				<div className="outer-div">

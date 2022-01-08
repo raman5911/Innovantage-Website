@@ -1,7 +1,9 @@
 import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt, faEye, faDownload } from "@fortawesome/free-solid-svg-icons";
+
+import { saveAs } from 'file-saver';
 
 class ShowCustomData extends React.Component {
     constructor(props) {
@@ -49,6 +51,10 @@ class ShowCustomData extends React.Component {
         });
         this.fetchData(this.state.id);
     }
+
+    downloadFile(user) {
+		saveAs(user.file_download_url, user.file_name);
+	}
 
     render() {
         var user = this.state.user;
@@ -180,6 +186,16 @@ class ShowCustomData extends React.Component {
                             </p>
                             <p>
                                 <b>File Document:</b>
+                                {user.file_download_url ? <>
+									<a href={user.file_preview_url} className="viewBtn" target="_blank" style={{marginLeft: "1rem"}}>
+										<FontAwesomeIcon icon={faEye} className="optionIcon"/>
+										View File
+									</a> 
+									<button className="downloadBtn" onClick={(pressDownload) => this.downloadFile(user)}  style={{marginLeft: "1rem"}}>
+										<FontAwesomeIcon icon={faDownload} className="optionIcon"/>
+										Download File
+									</button>
+								</> : " "}
                             </p>
                         </div>
                     </div>

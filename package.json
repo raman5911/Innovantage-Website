@@ -18,6 +18,10 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.2",
     "nanoid": "^3.1.23",
-    "nodemailer": "^6.7.2"
+    "nodemailer": "^6.7.2",
+    "multer": "^1.4.4",
+    "@supabase/supabase-js": "^1.29.1",
+    "date-fns": "^2.28.0",
+    "date-fns-tz": "^1.2.2"
   }
 }

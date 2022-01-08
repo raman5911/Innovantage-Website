@@ -160,7 +160,11 @@ module.exports = function htmlTemplate(user) {
 
     var body = content(user);
 
-    var currentTime = new Date();
+    const {utcToZonedTime, format } = require('date-fns-tz');
+
+    var date = new Date();
+    const zonedDate = utcToZonedTime(date, 'Asia/Kolkata');
+    const currentTime = format(zonedDate, 'eee MMM dd yyyy HH:mm:ss OOOO (zzzz)', { timeZone: 'Asia/Kolkata' });
 
     var footer = `
                 <div class="footer">

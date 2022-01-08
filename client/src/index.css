@@ -488,6 +488,27 @@ button.next:disabled {
 	outline: none !important;
 }
 
+.viewBtn {
+	padding: 0.5rem;
+	border-radius: 5px;
+	background-color: #008cff;
+	color: #fff;
+	font-weight: normal;
+}
+
+.viewBtn:hover {
+	background-color: #008cff;
+}
+
+.downloadBtn {
+	padding: 0.3rem 0.5rem !important;
+	border-color: transparent;
+	border-radius: 5px !important;
+	background-color: limegreen !important;
+	color: #fff;
+	font-weight: normal;
+}
+
 .outer-div .form-group label {
 	margin-right: 1.5rem;
 }

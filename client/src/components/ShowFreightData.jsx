@@ -1,7 +1,9 @@
 import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt, faEye, faDownload  } from "@fortawesome/free-solid-svg-icons";
+
+import { saveAs } from 'file-saver';
 
 class ShowFreightData extends React.Component {
 	constructor(props) {
@@ -48,6 +50,10 @@ class ShowFreightData extends React.Component {
 			userData: user,
 		});
 		this.fetchData(this.state.id);
+	}
+
+	downloadFile(user) {
+		saveAs(user.file_download_url, user.file_name);
 	}
 
 	render() {
@@ -102,7 +108,7 @@ class ShowFreightData extends React.Component {
 							</p>
 							<p>
 								<b>Status:</b>{" "}
-								<span className={statusClass[user.status]}>
+								<span className={statusClass[user.status]} style={{marginLeft: "0.5rem"}}>
 									{user.status}
 								</span>{" "}
 							</p>
@@ -186,6 +192,16 @@ class ShowFreightData extends React.Component {
 							</p>
 							<p>
 								<b>MSDS Report:</b>
+								{user.file_download_url ? <>
+									<a href={user.file_preview_url} className="viewBtn" target="_blank" style={{marginLeft: "1rem"}}>
+										<FontAwesomeIcon icon={faEye} className="optionIcon"/>
+										View File
+									</a> 
+									<button className="downloadBtn" onClick={(pressDownload) => this.downloadFile(user)}  style={{marginLeft: "1rem"}}>
+										<FontAwesomeIcon icon={faDownload} className="optionIcon"/>
+										Download File
+									</button>
+								</> : " "}
 							</p>
 						</div>
 					</div>

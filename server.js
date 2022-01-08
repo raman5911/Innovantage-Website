@@ -6,6 +6,17 @@ const ejs = require("ejs");
 const path = require("path");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const multer  = require('multer');
+const upload = multer({
+    storage: multer.memoryStorage()
+});
+require('dotenv').config();
+
+const createClient = require('@supabase/supabase-js').createClient
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 const {
   customAlphabet
@@ -248,6 +259,18 @@ const freightSchema = new Schema({
   },
   total_volume: {
     type: String
+  },
+  file_name: {
+    type: String
+  },
+  file_type: {
+    type: String
+  },
+  file_preview_url: {
+    type: String
+  },
+  file_download_url: {
+    type: String
   }
 });
 
@@ -325,6 +348,18 @@ const customSchema = new Schema({
   },
   shipment_per_month: {
     type: String
+  },
+  file_name: {
+    type: String
+  },
+  file_type: {
+    type: String
+  },
+  file_preview_url: {
+    type: String
+  },
+  file_download_url: {
+    type: String
   }
 });
 
@@ -393,6 +428,18 @@ const transportSchema = new Schema({
   },
   height: {
     type: String
+  },
+  file_name: {
+    type: String
+  },
+  file_type: {
+    type: String
+  },
+  file_preview_url: {
+    type: String
+  },
+  file_download_url: {
+    type: String
   }
 });
 
@@ -453,6 +500,18 @@ const warehouseSchema = new Schema({
   work_scope: {
     type: String
   },
+  file_name: {
+    type: String
+  },
+  file_type: {
+    type: String
+  },
+  file_preview_url: {
+    type: String
+  },
+  file_download_url: {
+    type: String
+  }
 });
 
 const Warehouse = mongoose.model('Warehouse', warehouseSchema, 'users');
@@ -484,6 +543,18 @@ const valueAddedSchema = new Schema({
   },
   service_type: {
     type: String
+  },
+  file_name: {
+    type: String
+  },
+  file_type: {
+    type: String
+  },
+  file_preview_url: {
+    type: String
+  },
+  file_download_url: {
+    type: String
   }
 });
 
@@ -513,11 +584,51 @@ function getRandomId(type) {
 
 // console.log(getRandomId("value"));
 
-app.post("/freight_forwarding_contact_form", function (req, res) {
+app.post("/freight_forwarding_contact_form", upload.single('fileUpload'), function (req, res) {
+
+  const id = getRandomId("freight");
+  var fileName = "";
+  var fileType = "";
+  var filePreviewUrl = "";
+  var fileDownloadUrl = "";
+
+  if(req.file) {
+    fileName = id + '-' + req.file.originalname;
+    var filePath ='freight_forwarding/' + fileName;
+
+    supabase.storage
+    .from('user-files')
+    .upload(filePath, req.file.buffer)
+    .then((value) => {
+        if(value.error)
+            console.log(value.error)
+
+        else
+            console.log(value.data)
+    })
+
+    const { publicURL} = supabase
+    .storage
+    .from('user-files')
+    .getPublicUrl(filePath)
+
+    console.log(publicURL)
+    fileDownloadUrl = publicURL;
+
+    fileType = req.file.mimetype.split("/")[0];
+    console.log(fileType);
+
+    if(fileType != "image") {
+      filePreviewUrl = "https://docs.google.com/a/supabase.com/viewer?url=" + publicURL;
+    }
+    else {
+      filePreviewUrl = publicURL;
+    }
+  }
 
   const freightUser = new Freight({
 
-    _id: getRandomId("freight"),
+    _id: id,
     service: "Freight Forwarding",
     status: "Not Assigned",
     shipment_type: req.body.shipmentType,
@@ -541,7 +652,12 @@ app.post("/freight_forwarding_contact_form", function (req, res) {
     container_type: req.body.containerType,
     gross_weight: req.body.grossWeight,
     number_of_packages: req.body.numOfPkg,
-    total_volume: req.body.totalVolume
+    total_volume: req.body.totalVolume,
+
+    file_name: fileName,
+    file_type: fileType,
+    file_preview_url: filePreviewUrl,
+    file_download_url: fileDownloadUrl
   });
 
   freightUser.save(function (err, data) {
@@ -556,9 +672,50 @@ app.post("/freight_forwarding_contact_form", function (req, res) {
   });
 });
 
-app.post("/custom_clearance_contact_form", function (req, res) {
+app.post("/custom_clearance_contact_form", upload.single('fileUpload'), function (req, res) {
+
+  const id = getRandomId("custom");
+  var fileName = "";
+  var fileType = "";
+  var filePreviewUrl = "";
+  var fileDownloadUrl = "";
+
+  if(req.file) {
+    fileName = id + '-' + req.file.originalname;
+    var filePath ='custom_clearance/' + fileName;
+
+    supabase.storage
+    .from('user-files')
+    .upload(filePath, req.file.buffer)
+    .then((value) => {
+        if(value.error)
+            console.log(value.error)
+
+        else
+            console.log(value.data)
+    })
+
+    const { publicURL} = supabase
+    .storage
+    .from('user-files')
+    .getPublicUrl(filePath)
+
+    console.log(publicURL)
+    fileDownloadUrl = publicURL;
+
+    fileType = req.file.mimetype.split("/")[0];
+    console.log(fileType);
+
+    if(fileType != "image") {
+      filePreviewUrl = "https://docs.google.com/a/supabase.com/viewer?url=" + publicURL;
+    }
+    else {
+      filePreviewUrl = publicURL;
+    }
+  }
+
   const customUser = new Custom({
-    _id: getRandomId("custom"),
+    _id: id,
     service: "Custom Clearance",
     status: "Not Assigned",
     shipment_type: req.body.shipmentType,
@@ -581,7 +738,12 @@ app.post("/custom_clearance_contact_form", function (req, res) {
     gross_weight: req.body.grossWeight,
     number_of_packages: req.body.numOfPkg,
     total_volume: req.body.totalVolume,
-    shipment_per_month: req.body.numOfShip
+    shipment_per_month: req.body.numOfShip,
+
+    file_name: fileName,
+    file_type: fileType,
+    file_preview_url: filePreviewUrl,
+    file_download_url: fileDownloadUrl
   });
 
   customUser.save(function (err, data) {
@@ -596,10 +758,50 @@ app.post("/custom_clearance_contact_form", function (req, res) {
   });
 });
 
-app.post("/transportation_management_contact_form", function (req, res) {
+app.post("/transportation_management_contact_form", upload.single('fileUpload') , function (req, res) {
+
+  const id = getRandomId("transport");
+  var fileName = "";
+  var fileType = "";
+  var filePreviewUrl = "";
+  var fileDownloadUrl = "";
+
+  if(req.file) {
+    fileName = id + '-' + req.file.originalname;
+    var filePath ='transportation_management/' + fileName;
+
+    supabase.storage
+    .from('user-files')
+    .upload(filePath, req.file.buffer)
+    .then((value) => {
+        if(value.error)
+            console.log(value.error)
+
+        else
+            console.log(value.data)
+    })
+
+    const { publicURL} = supabase
+    .storage
+    .from('user-files')
+    .getPublicUrl(filePath)
+
+    console.log(publicURL)
+    fileDownloadUrl = publicURL;
+
+    fileType = req.file.mimetype.split("/")[0];
+    console.log(fileType);
+
+    if(fileType != "image") {
+      filePreviewUrl = "https://docs.google.com/a/supabase.com/viewer?url=" + publicURL;
+    }
+    else {
+      filePreviewUrl = publicURL;
+    }
+  }
 
   const transportUser = new Transport({
-    _id: getRandomId("transport"),
+    _id: id,
     service: "Transportation Management",
     status: "Not Assigned",
     user_name: req.body.userName,
@@ -620,6 +822,11 @@ app.post("/transportation_management_contact_form", function (req, res) {
     length: req.body.length,
     width: req.body.width,
     height: req.body.height,
+
+    file_name: fileName,
+    file_type: fileType,
+    file_preview_url: filePreviewUrl,
+    file_download_url: fileDownloadUrl
   });
 
   transportUser.save(function (err, data) {
@@ -634,9 +841,50 @@ app.post("/transportation_management_contact_form", function (req, res) {
   })
 });
 
-app.post("/warehouse_management_contact_form", function (req, res) {
+app.post("/warehouse_management_contact_form", upload.single('fileUpload'), function (req, res) {
+
+  const id = getRandomId("warehouse");
+  var fileName = "";
+  var fileType = "";
+  var filePreviewUrl = "";
+  var fileDownloadUrl = "";
+
+  if(req.file) {
+    fileName = id + '-' + req.file.originalname;
+    var filePath ='warehouse_management/' + fileName;
+
+    supabase.storage
+    .from('user-files')
+    .upload(filePath, req.file.buffer)
+    .then((value) => {
+        if(value.error)
+            console.log(value.error)
+
+        else
+            console.log(value.data)
+    })
+
+    const { publicURL} = supabase
+    .storage
+    .from('user-files')
+    .getPublicUrl(filePath)
+
+    console.log(publicURL)
+    fileDownloadUrl = publicURL;
+
+    fileType = req.file.mimetype.split("/")[0];
+    console.log(fileType);
+
+    if(fileType != "image") {
+      filePreviewUrl = "https://docs.google.com/a/supabase.com/viewer?url=" + publicURL;
+    }
+    else {
+      filePreviewUrl = publicURL;
+    }
+  }
+
   const warehouseUser = new Warehouse({
-    _id: getRandomId("warehouse"),
+    _id: id,
     service: "Warehouse Management",
     status: "Not Assigned",
     user_name: req.body.userName,
@@ -653,7 +901,12 @@ app.post("/warehouse_management_contact_form", function (req, res) {
     manpower_options: req.body.manpowOptions,
     security_options: req.body.securityOptions,
     other_requirements: req.body.otherReq,
-    work_scope: req.body.workScope
+    work_scope: req.body.workScope,
+
+    file_name: fileName,
+    file_type: fileType,
+    file_preview_url: filePreviewUrl,
+    file_download_url: fileDownloadUrl
   });
 
   warehouseUser.save(function (err, data) {
@@ -668,9 +921,50 @@ app.post("/warehouse_management_contact_form", function (req, res) {
   });
 });
 
-app.post("/value_added_services_contact_form", function (req, res) {
+app.post("/value_added_services_contact_form", upload.single('fileUpload'), function (req, res) {
+
+  const id = getRandomId("value");
+  var fileName = "";
+  var fileType = "";
+  var filePreviewUrl = "";
+  var fileDownloadUrl = "";
+
+  if(req.file) {
+    fileName = id + '-' + req.file.originalname;
+    var filePath ='value_added_services/' + fileName;
+
+    supabase.storage
+    .from('user-files')
+    .upload(filePath, req.file.buffer)
+    .then((value) => {
+        if(value.error)
+            console.log(value.error)
+
+        else
+            console.log(value.data)
+    })
+
+    const { publicURL} = supabase
+    .storage
+    .from('user-files')
+    .getPublicUrl(filePath)
+
+    console.log(publicURL)
+    fileDownloadUrl = publicURL;
+
+    fileType = req.file.mimetype.split("/")[0];
+    console.log(fileType);
+
+    if(fileType != "image") {
+      filePreviewUrl = "https://docs.google.com/a/supabase.com/viewer?url=" + publicURL;
+    }
+    else {
+      filePreviewUrl = publicURL;
+    }
+  }
+
   const valueAddedUser = new ValueAdded({
-    _id: getRandomId("value"),
+    _id: id,
     service: "Value Added Services",
     status: "Not Assigned",
     user_name: req.body.userName,
@@ -678,7 +972,12 @@ app.post("/value_added_services_contact_form", function (req, res) {
     user_country_code: req.body.userPhoneCode,
     user_phone_number: req.body.userPhone,
     user_email_address: req.body.userEmail,
-    service_type: req.body.serviceType
+    service_type: req.body.serviceType,
+
+    file_name: fileName,
+    file_type: fileType,
+    file_preview_url: filePreviewUrl,
+    file_download_url: fileDownloadUrl
   });
 
   valueAddedUser.save(function (err, data) {
@@ -992,7 +1291,7 @@ app.get("/api/search/:id", function (req, res) {
   }
 });
 
-app.post("/api/freight/editData", function (req, res) {
+app.post("/api/freight/editData", upload.single('fileUpload'), function (req, res) {
 
   var requestedFreightId = req.body.id;
 
@@ -1021,6 +1320,10 @@ app.post("/api/freight/editData", function (req, res) {
     FreightData.gross_weight = req.body.grossWeight;
     FreightData.number_of_packages = req.body.numOfPkg;
     FreightData.total_volume = req.body.totalVolume;
+    FreightData.file_name = fileName;
+    FreightData.file_type = fileType;
+    FreightData.file_preview_url = filePreviewUrl;
+    FreightData.file_download_url = fileDownloadUrl;
 
     FreightData.save(function (err, result) {
       if (err)
@@ -1171,20 +1474,161 @@ app.post("/api/value_added_services/editData", function (req, res) {
 
 });
 
+function deleteFile(id) {
+
+  var fileName = '';
+  var filePath = '';
+
+  var queryType = id.charAt(0);
+  console.log(queryType);
+
+  if (queryType == 'F') {
+    Freight.find({
+       _id: id
+      }, function (err, data) {
+
+      if (err)
+        res.send([]);
+
+      else {
+        fileName = data[0]["file_name"];
+        filePath = 'freight_forwarding/' + fileName;
+      }
+    
+      if(fileName) {
+        supabase
+        .storage
+        .from('user-files')
+        .remove([filePath])
+        .then((value) => {
+          console.log(value);
+        });
+      }
+    });
+  } 
+  
+  else if (queryType == 'C') {
+    Custom.find({
+      _id: id
+    }, function (err, data) {
+
+      if (err)
+        res.send([]);
+
+      else {
+        fileName = data[0]["file_name"];
+        filePath = 'custom_clearance/' + fileName;
+      }
+
+      if(fileName) {
+        supabase
+        .storage
+        .from('user-files')
+        .remove([filePath])
+        .then((value) => {
+          console.log(value);
+        });
+      }
+    });
+
+  } 
+  
+  else if (queryType == 'T') {
+    Transport.find({
+      _id: id
+    }, function (err, data) {
+
+      if (err)
+        res.send([]);
+
+      else {
+        fileName = data[0]["file_name"];
+        filePath = 'transportation_management/' + fileName;
+      }
+
+      if(fileName) {
+        supabase
+        .storage
+        .from('user-files')
+        .remove([filePath])
+        .then((value) => {
+          console.log(value);
+        });
+      }
+    });
+
+  } 
+  
+  else if (queryType == 'W') {
+    Warehouse.find({
+      _id: id
+    }, function (err, data) {
+
+      if (err)
+        res.send([]);
+
+      else {
+        fileName = data[0]["file_name"];
+        filePath = 'warehouse_management/' + fileName;
+      }
+
+      if(fileName) {
+        supabase
+        .storage
+        .from('user-files')
+        .remove([filePath])
+        .then((value) => {
+          console.log(value);
+        });
+      }
+    });
+
+  } 
+  
+  else if (queryType == 'V') {
+    ValueAdded.find({
+      _id: id
+    }, function (err, data) {
+
+      if (err)
+        res.send([]);
+
+      else {
+        fileName = data[0]["file_name"];
+        filePath = 'value_added_services/' + fileName;
+      }
+
+      if(fileName) {
+        supabase
+        .storage
+        .from('user-files')
+        .remove([filePath])
+        .then((value) => {
+          console.log(value);
+        });
+      }
+    });
+
+  }
+}
+
 app.get("/api/delete/:id", function (req, res) {
 
   const requestedQueryId = req.params.id;
   var queryType = requestedQueryId.charAt(0);
+
+  deleteFile(requestedQueryId);
 
   if (queryType == 'F') {
     Freight.findByIdAndDelete(requestedQueryId, function (err, data) {
       if (err)
         res.send(err);
 
-      else
-        // res.send(data);
+      else {
         res.send("Data deleted successfully");
+      }
     });
+
   } 
   
   else if (queryType == 'C') {
@@ -1192,10 +1636,12 @@ app.get("/api/delete/:id", function (req, res) {
       if (err)
         res.send(err);
 
-      else
-        // res.send(data);
+      else {
         res.send("Data deleted successfully");
+        fileName = data.file_name;
+      }
     });
+  
   } 
   
   else if (queryType == 'T') {
@@ -1203,10 +1649,12 @@ app.get("/api/delete/:id", function (req, res) {
       if (err)
         res.send(err);
 
-      else
-        // res.send(data);
+      else {
         res.send("Data deleted successfully");
+        fileName = data.file_name;
+      }
     });
+    
   } 
   
   else if (queryType == 'W') {
@@ -1214,10 +1662,12 @@ app.get("/api/delete/:id", function (req, res) {
       if (err)
         res.send(err);
 
-      else
-        // res.send(data);
+      else {
         res.send("Data deleted successfully");
+        fileName = data.file_name;
+      }
     });
+      
   } 
   
   else if (queryType == 'V') {
@@ -1225,10 +1675,12 @@ app.get("/api/delete/:id", function (req, res) {
       if (err)
         res.send(err);
 
-      else
-        // res.send(data);
+      else {
         res.send("Data deleted successfully");
+        fileName = data.file_name;
+      }
     });
+        
   }
 });
 
