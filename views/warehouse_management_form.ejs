@@ -246,7 +246,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
                         <label for="userName">Name</label>
-                        <input type="text" name="userName" id="user-name" placeholder="Enter your Full Name" required>
+                        <input type="text" name="userName" id="user-name" placeholder="Enter your Full Name" required maxlength="100">
                     </div>
                 </div>
 
@@ -254,14 +254,14 @@
                     <div class="form-group">
                         <label for="userAddress">Address</label>
                         <input type="text" name="userAddress" id="user-address" placeholder="Enter your address"
-                            required>
+                            required maxlength="150">
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
                         <label for="userPhone">Contact Number</label>
-                        <input type="tel" name="userPhone" id="phone" required>
+                        <input type="tel" name="userPhone" id="phone" required maxlength="30">
 
                         <input type="hidden" name="userPhoneCode" id="user-phone-code">
 
@@ -286,7 +286,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
                         <label for="warehouseCity">Warehouse City</label>
-                        <input type="text" name="warehouseCity" id="warehouse-city" placeholder="Enter City">
+                        <input type="text" name="warehouseCity" id="warehouse-city" placeholder="Enter City" maxlength="50">
                     </div>
                 </div>
 
@@ -294,21 +294,21 @@
                     <div class="form-group">
                         <label for="specificLocation">Specific Location</label>
                         <input type="text" name="specificLocation" id="specific-location"
-                            placeholder="Enter Location Address">
+                            placeholder="Enter Location Address" maxlength="180">
                     </div>
                 </div>
 
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
                         <label for="coveredArea">Required Covered Area (in SQFT)</label><input type="text"
-                            name="coveredArea" id="covered-area" placeholder="Enter Required Covered Area">
+                            name="coveredArea" id="covered-area" placeholder="Enter Required Covered Area" maxlength="20">
                     </div>
                 </div>
 
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group">
                         <label for="openArea">Required Open Area (in SQFT)</label><input type="text" name="openArea"
-                            id="open-area" placeholder="Enter Required Open Area">
+                            id="open-area" placeholder="Enter Required Open Area" maxlength="20">
                     </div>
                 </div>
 
@@ -316,7 +316,7 @@
                     <div class="form-group">
                         <label for="commodityStorage">Commodity Storage</label>
                         <input type="text" name="commodityStorage" id="commodity-storage"
-                            placeholder="Enter Commodity Storage">
+                            placeholder="Enter Commodity Storage" maxlength="30">
                     </div>
                 </div>
 
@@ -353,12 +353,12 @@
                     </div>
                 </div>
 
-                <div class="col-lg-12 col-md-12">
+                <!-- <div class="col-lg-12 col-md-12">
                     <div class="form-group">
                         <label for="otherReq">Other Infrastucture Requirements</label>
 
-                        <textarea name="otherReq" id="other-req" cols="40" rows="7"
-                            placeholder="Enter other requirements (if any)"></textarea>
+                        <input type="text" name="otherReq" id="other-req" cols="40" rows="7"
+                            placeholder="Enter other requirements (if any)">
                     </div>
                 </div>
 
@@ -366,9 +366,9 @@
                     <div class="form-group">
                         <label for="workScope">Scope of Work</label>
 
-                        <textarea name="workScope" id="work-scope" cols="40" rows="7"></textarea>
+                        <input type="text" name="workScope" id="work-scope" cols="40" rows="7">
                     </div>
-                </div>
+                </div> -->
 
                 <div class="col">
                     <div class="form-group">
